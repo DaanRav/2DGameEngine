@@ -37,7 +37,7 @@ namespace dae
 	public:
 		InputManager();
 		~InputManager();
-		bool ProcessInput();
+		void ProcessInput();
 		void HandleInput();
 		bool IsPressed(ControllerButton button) const;
 		void SetCommand(const ControllerButton& button, ButtonState buttonState, Command* pCommand);
@@ -52,5 +52,6 @@ namespace dae
 
 		XINPUT_KEYSTROKE m_Keystrokes{};
 		std::vector<Input> m_Commands{};
+		bool m_StopGame{};
 	};
 }

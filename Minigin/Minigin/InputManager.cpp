@@ -25,21 +25,14 @@ dae::InputManager::~InputManager()
 	}
 }
 
-bool dae::InputManager::ProcessInput()
+void dae::InputManager::ProcessInput()
 {
 	DWORD result = XInputGetKeystroke(0, 0, &m_Keystrokes);
 
 	if (result == ERROR_DEVICE_NOT_CONNECTED)
 	{
 		std::cout << "ERROR: No device connected\n";
-		return false;
 	}
-	if (result == ERROR_EMPTY)
-	{
-		return false;
-	}
-
-	return true;
 }
 
 void dae::InputManager::HandleInput()
@@ -119,7 +112,9 @@ bool dae::InputManager::IsPressed(ControllerButton button) const
 		break;
 	case dae::ControllerButton::ButtonBack:
 		if (m_Keystrokes.VirtualKey == VK_PAD_BACK)
+		{
 			return true;
+		}
 		break;
 	case dae::ControllerButton::LeftBumper:
 		if (m_Keystrokes.VirtualKey == VK_PAD_LSHOULDER)

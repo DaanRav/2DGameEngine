@@ -110,7 +110,9 @@ void dae::Minigin::Run()
 			pTimer->Update();
 			lag += pTimer->GetDeltaTime();
 			
-			doContinue = input.ProcessInput();
+			input.ProcessInput();
+			if (input.IsPressed(ControllerButton::ButtonBack))
+				doContinue = false;
 			input.HandleInput();
 
 			while (lag >= pTimer->GetFixedDeltaTime())
