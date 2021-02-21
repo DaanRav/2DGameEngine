@@ -4,6 +4,7 @@
 #pragma comment(lib, "XInput.lib")
 #include "Command.h"
 #include <vector>
+#include "Singleton.h"
 
 namespace dae
 {
@@ -31,12 +32,12 @@ namespace dae
 		Down, Up, Pressed
 	};
 
-	class InputManager
+	class InputManager final : public Singleton<InputManager>
 	{
 	public:
 		InputManager();
 		~InputManager();
-		void ProcessInput();
+		bool ProcessInput();
 		void HandleInput();
 		bool IsPressed(ControllerButton button) const;
 		void SetCommand(const ControllerButton& button, ButtonState buttonState, Command* pCommand);

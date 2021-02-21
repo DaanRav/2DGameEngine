@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <typeinfo>
 #include "Component.h"
+#include <vector>
 
 class Component;
 enum class Component::CompType;

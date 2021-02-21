@@ -1,4 +1,5 @@
 #include "InputManager.h"
+#include <iostream>
 
 dae::InputManager::InputManager()
 {
@@ -24,12 +25,21 @@ dae::InputManager::~InputManager()
 	}
 }
 
-void dae::InputManager::ProcessInput()
+bool dae::InputManager::ProcessInput()
 {
 	DWORD result = XInputGetKeystroke(0, 0, &m_Keystrokes);
 
 	if (result == ERROR_DEVICE_NOT_CONNECTED)
+	{
 		std::cout << "ERROR: No device connected\n";
+		return false;
+	}
+	if (result == ERROR_EMPTY)
+	{
+		return false;
+	}
+
+	return true;
 }
 
 void dae::InputManager::HandleInput()

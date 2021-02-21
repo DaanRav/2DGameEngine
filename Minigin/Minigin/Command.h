@@ -13,14 +13,16 @@ private:
 	GameObject* m_pGameObject{ nullptr };
 };
 
+//commands for game objects
+
 class JumpCommand : public Command
 {
 public:
 	JumpCommand(GameObject* pGameObject) :Command{ pGameObject } {};
 	void Execute() override 
 	{ 
-		if (GetGameObject()) 
-			GetGameObject()->Jump();
+		//if (GetGameObject()) 
+			//GetGameObject()->Jump();
 	};
 };
 
@@ -30,8 +32,8 @@ public:
 	DuckCommand(GameObject* pGameObject) :Command{ pGameObject } {};
 	void Execute() override 
 	{ 
-		if (GetGameObject()) 
-			GetGameObject()->Duck(); 
+		//if (GetGameObject()) 
+			//GetGameObject()->Duck(); 
 	};
 };
 
@@ -41,8 +43,8 @@ public:
 	FireCommand(GameObject* pGameObject) :Command{ pGameObject } {};
 	void Execute() override 
 	{ 
-		if (GetGameObject())
-			GetGameObject()->Fire();
+		//if (GetGameObject())
+			//GetGameObject()->Fire();
 	};
 };
 
@@ -52,7 +54,7 @@ public:
 	FartCommand(GameObject* pGameObject) :Command{ pGameObject } {};
 	void Execute() override
 	{ 
-		if (GetGameObject())
-			GetGameObject()->Fart();
+		//if (GetGameObject())
+			//GetGameObject()->Fart();
 	};
 };
