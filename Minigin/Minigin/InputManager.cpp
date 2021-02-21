@@ -2,7 +2,7 @@
 #include <iostream>
 #include <SDL.h>
 
-dae::InputManager::InputManager()
+InputManager::InputManager()
 {
 	//setting the input vector to the correct size
 	for (int i{}; i < int(ControllerButton::NR_OF_BUTTONS); i++)
@@ -11,7 +11,7 @@ dae::InputManager::InputManager()
 	}
 }
 
-dae::InputManager::~InputManager()
+InputManager::~InputManager()
 {
 	for (Input input : m_Commands)
 	{
@@ -26,7 +26,7 @@ dae::InputManager::~InputManager()
 	}
 }
 
-bool dae::InputManager::ProcessInput()
+bool InputManager::ProcessInput()
 {
 	DWORD result = XInputGetKeystroke(0, 0, &m_Keystrokes);
 
@@ -51,7 +51,7 @@ bool dae::InputManager::ProcessInput()
 	return true;
 }
 
-void dae::InputManager::HandleInput()
+void InputManager::HandleInput()
 {
 	//going through all the buttons and checking wich ones are pressed
 	for (int i{}; i < int(ControllerButton::NR_OF_BUTTONS); i++)
@@ -86,65 +86,65 @@ void dae::InputManager::HandleInput()
 	}
 }
 
-bool dae::InputManager::IsPressed(ControllerButton button) const
+bool InputManager::IsPressed(ControllerButton button) const
 {
 	switch (button)
 	{
-	case dae::ControllerButton::ButtonCross:
+	case ControllerButton::ButtonCross:
 		if (m_Keystrokes.VirtualKey == VK_PAD_A)
 			return true;
 		break;
-	case dae::ControllerButton::ButtonCircle:
+	case ControllerButton::ButtonCircle:
 		if (m_Keystrokes.VirtualKey == VK_PAD_B)
 			return true;
 		break;
-	case dae::ControllerButton::ButtonSquare:
+	case ControllerButton::ButtonSquare:
 		if (m_Keystrokes.VirtualKey == VK_PAD_X)
 			return true;
 		break;
-	case dae::ControllerButton::ButtonTriangle:
+	case ControllerButton::ButtonTriangle:
 		if (m_Keystrokes.VirtualKey == VK_PAD_Y)
 			return true;
 		break;
-	case dae::ControllerButton::DpadUp:
+	case ControllerButton::DpadUp:
 		if (m_Keystrokes.VirtualKey == VK_PAD_DPAD_UP)
 			return true;
 		break;
-	case dae::ControllerButton::DpadDown:
+	case ControllerButton::DpadDown:
 		if (m_Keystrokes.VirtualKey == VK_PAD_DPAD_DOWN)
 			return true;
 		break;
-	case dae::ControllerButton::DpadLeft:
+	case ControllerButton::DpadLeft:
 		if (m_Keystrokes.VirtualKey == VK_PAD_DPAD_LEFT)
 			return true;
 		break;
-	case dae::ControllerButton::DpadRight:
+	case ControllerButton::DpadRight:
 		if (m_Keystrokes.VirtualKey == VK_PAD_DPAD_RIGHT)
 			return true;
 		break;
-	case dae::ControllerButton::ButtonStart:
+	case ControllerButton::ButtonStart:
 		if (m_Keystrokes.VirtualKey == VK_PAD_START)
 			return true;
 		break;
-	case dae::ControllerButton::ButtonBack:
+	case ControllerButton::ButtonBack:
 		if (m_Keystrokes.VirtualKey == VK_PAD_BACK)
 		{
 			return true;
 		}
 		break;
-	case dae::ControllerButton::LeftBumper:
+	case ControllerButton::LeftBumper:
 		if (m_Keystrokes.VirtualKey == VK_PAD_LSHOULDER)
 			return true;
 		break;
-	case dae::ControllerButton::LeftThumb:
+	case ControllerButton::LeftThumb:
 		if (m_Keystrokes.VirtualKey == VK_PAD_LTHUMB_PRESS)
 			return true;
 		break;
-	case dae::ControllerButton::RightBumper:
+	case ControllerButton::RightBumper:
 		if (m_Keystrokes.VirtualKey == VK_PAD_RSHOULDER)
 			return true;
 		break;
-	case dae::ControllerButton::RightThumb:
+	case ControllerButton::RightThumb:
 		if (m_Keystrokes.VirtualKey == VK_PAD_RTHUMB_PRESS)
 			return true;
 		break;
@@ -155,7 +155,7 @@ bool dae::InputManager::IsPressed(ControllerButton button) const
 	return false;
 }
 
-void dae::InputManager::SetCommand(const ControllerButton& button, ButtonState buttonState, Command* pCommand)
+void InputManager::SetCommand(const ControllerButton& button, ButtonState buttonState, Command* pCommand)
 {
 	if (buttonState == ButtonState::Down)
 	{
