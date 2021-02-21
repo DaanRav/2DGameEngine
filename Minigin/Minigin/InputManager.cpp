@@ -1,5 +1,6 @@
 #include "InputManager.h"
 #include <iostream>
+#include <SDL.h>
 
 dae::InputManager::InputManager()
 {
@@ -25,7 +26,7 @@ dae::InputManager::~InputManager()
 	}
 }
 
-void dae::InputManager::ProcessInput()
+bool dae::InputManager::ProcessInput()
 {
 	DWORD result = XInputGetKeystroke(0, 0, &m_Keystrokes);
 
@@ -33,6 +34,21 @@ void dae::InputManager::ProcessInput()
 	{
 		std::cout << "ERROR: No device connected\n";
 	}
+
+	SDL_Event e;
+	while (SDL_PollEvent(&e)) {
+		if (e.type == SDL_QUIT) {
+			return false;
+		}
+		if (e.type == SDL_KEYDOWN) {
+
+		}
+		if (e.type == SDL_MOUSEBUTTONDOWN) {
+
+		}
+	}
+
+	return true;
 }
 
 void dae::InputManager::HandleInput()

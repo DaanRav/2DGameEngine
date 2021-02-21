@@ -37,7 +37,7 @@ namespace dae
 	public:
 		InputManager();
 		~InputManager();
-		void ProcessInput();
+		bool ProcessInput();
 		void HandleInput();
 		bool IsPressed(ControllerButton button) const;
 		void SetCommand(const ControllerButton& button, ButtonState buttonState, Command* pCommand);
