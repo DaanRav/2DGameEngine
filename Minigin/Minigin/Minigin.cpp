@@ -111,7 +111,6 @@ void dae::Minigin::Run()
 			lag += pTimer->GetDeltaTime();
 			
 			doContinue = input.ProcessInput();
-			input.HandleInput();
 
 			while (lag >= pTimer->GetFixedDeltaTime())
 			{
