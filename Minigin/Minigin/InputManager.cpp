@@ -1,6 +1,5 @@
 #include "InputManager.h"
 #include <iostream>
-#include <SDL.h>
 
 InputManager::InputManager()
 {
@@ -27,30 +26,38 @@ bool InputManager::ProcessInput()
 	XInputGetKeystroke(0, 0, &m_Keystrokes);
 	HandleControllerInput();
 
-	//keyboard input
-	SDL_Event e;
-	while (SDL_PollEvent(&e)) 
+	//keyboard / mouse input
+	while (SDL_PollEvent(&m_SDLEvent))
 	{
-		if (e.type == SDL_QUIT) 
+		if (m_SDLEvent.type == SDL_QUIT) 
 		{
+			//quiting the game when clicked on the cross of the window
 			return false;
 		}
-		if (e.type == SDL_KEYDOWN) 
+		if (m_SDLEvent.type == SDL_KEYDOWN || m_SDLEvent.type == SDL_KEYUP) 
 		{
-
+			//only handel keyboard input if a key is pressed
+			HandleKeyboardInput();
 		}
-		if (e.type == SDL_MOUSEBUTTONDOWN) 
+		if (m_SDLEvent.type == SDL_MOUSEBUTTONDOWN) 
 		{
-
+			//mouse input should come here
 		}
 	}
 
 	return true;
 }
 
-bool InputManager::IsPressed(ControllerButton button) const
+bool InputManager::IsPressed(const ControllerButton& button) const
 {
 	if ((WORD)button == m_Keystrokes.VirtualKey)
+		return true;
+	return false;
+}
+
+bool InputManager::IsPressed(const KeyboardButton& button) const
+{
+	if ((SDL_Scancode)button == m_SDLEvent.key.keysym.scancode)
 		return true;
 	return false;
 }
@@ -77,6 +84,31 @@ void InputManager::SetCommand(const ControllerButton& button, ButtonState button
 		delete m_ControllerCommands.at(button).pressedCommand;
 		//setting the new command
 		m_ControllerCommands.at(button).pressedCommand = pCommand;
+	}
+}
+
+void InputManager::SetCommand(const KeyboardButton& button, ButtonState buttonState, Command* pCommand)
+{
+	if (buttonState == ButtonState::Down)
+	{
+		//removing the old command
+		delete m_KeyboardCommands.at(button).downCommand;
+		//setting the new command
+		m_KeyboardCommands.at(button).downCommand = pCommand;
+	}
+	if (buttonState == ButtonState::Up)
+	{
+		//removing the old command
+		delete m_KeyboardCommands.at(button).upCommand;
+		//setting the new command
+		m_KeyboardCommands.at(button).upCommand = pCommand;
+	}
+	if (buttonState == ButtonState::Pressed)
+	{
+		//removing the old command
+		delete m_KeyboardCommands.at(button).pressedCommand;
+		//setting the new command
+		m_KeyboardCommands.at(button).pressedCommand = pCommand;
 	}
 }
 
@@ -112,5 +144,27 @@ void InputManager::HandleControllerInput()
 					m_ControllerCommands.at(input.first).downCommand->Execute();
 			}
 		}
+	}
+}
+
+void InputManager::HandleKeyboardInput()
+{
+	//for keyboard input we only need to check the current button that is pressed and not loop over all of them
+	//we do the looping in the proces input fucntion
+	auto it = m_KeyboardCommands.find((KeyboardButton)m_SDLEvent.key.keysym.scancode);
+	//check if the key is in the map
+	if (it == m_KeyboardCommands.end())
+		return;
+
+	//TODO: make the down command work as well withs some kind of flag or look a bit more into sdl
+	if (m_SDLEvent.type == SDL_KEYDOWN)
+	{
+		if(it->second.pressedCommand != nullptr)
+			it->second.pressedCommand->Execute();
+	}
+	if (m_SDLEvent.type == SDL_KEYUP)
+	{
+		if (it->second.upCommand != nullptr)
+			it->second.upCommand->Execute();
 	}
 }
