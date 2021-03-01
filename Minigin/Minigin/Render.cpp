@@ -77,10 +77,10 @@ void Comp::RenderComp::Update()
 		{
 			if (pTexture == nullptr)
 				return;
-			if (m_pGameObject.lock()->GetComponent(Component::CompType::transform) == nullptr)
+			if (m_pTransformComp == nullptr)
 				return;
 
-			glm::vec3 pos{ std::dynamic_pointer_cast<Comp::TransformComp>(m_pGameObject.lock()->GetComponent(Component::CompType::transform))->GetPosition() };
+			glm::vec3 pos{ m_pTransformComp->GetPosition() };
 
 			dae::Renderer::GetInstance().RenderTexture(*pTexture, pos.x, pos.y);
 		});
@@ -100,7 +100,7 @@ void Comp::RenderComp::RemoveTexture(const std::shared_ptr<dae::Texture2D>& pTex
 void Comp::RenderComp::GetNeededComponents()
 {
 	if (m_pGameObject.lock())
-		m_pTransformComp = std::dynamic_pointer_cast<TransformComp>(m_pGameObject.lock()->GetComponent(Component::CompType::transform));
+		m_pTransformComp = m_pGameObject.lock()->GetComponent<Comp::TransformComp>();
 }
 
 bool Comp::RenderComp::HasAllComponents() const

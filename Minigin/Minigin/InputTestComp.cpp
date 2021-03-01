@@ -67,7 +67,7 @@ bool Comp::InputTestComp::HasAllComponents() const
 //commands
 void KeyboardPress::Execute()
 {
-	std::shared_ptr<Comp::TextComp> pTextComp = std::dynamic_pointer_cast<Comp::TextComp>(GetGameObject().lock()->GetComponent(Component::CompType::text));
+	std::shared_ptr<Comp::TextComp> pTextComp = GetGameObject().lock()->GetComponent<Comp::TextComp>();
 	if (pTextComp == nullptr)
 		return;
 
@@ -76,7 +76,7 @@ void KeyboardPress::Execute()
 
 void ControllerPress::Execute()
 {
-	std::shared_ptr<Comp::TextComp> pTextComp = std::dynamic_pointer_cast<Comp::TextComp>(GetGameObject().lock()->GetComponent(Component::CompType::text));
+	std::shared_ptr<Comp::TextComp> pTextComp = GetGameObject().lock()->GetComponent<Comp::TextComp>();
 	if (pTextComp == nullptr)
 		return;
 

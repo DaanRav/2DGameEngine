@@ -75,7 +75,7 @@ void dae::Minigin::LoadGame() const
 	go = std::make_shared<GameObject>();
 	go->AddComponent(std::make_shared<Comp::TransformComp>(Comp::TransformComp{glm::vec3{0,0,0} }));
 	go->AddComponent(std::make_shared<Comp::TextComp>(Comp::TextComp{ "00 FPS","Lingua.otf",20 }));
-	std::dynamic_pointer_cast<Comp::TextComp>(go->GetComponent(Component::CompType::text))->SetColor(glm::vec3{ 0.0f,1.0f,0.0f });
+	go->GetComponent<Comp::TextComp>()->SetColor(glm::vec3{ 0.0f,1.0f,0.0f });
 	go->AddComponent(std::make_shared<Comp::FpsCounterComp>(Comp::FpsCounterComp{}));
 	go->AddComponent(std::make_shared<Comp::RenderComp>(Comp::RenderComp{}));
 	scene.Add(go);

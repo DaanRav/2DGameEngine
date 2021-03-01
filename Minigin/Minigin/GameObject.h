@@ -5,7 +5,6 @@
 #include <vector>
 
 class Component;
-enum class Component::CompType;
 
 class GameObject final : public std::enable_shared_from_this<GameObject>
 {
@@ -27,10 +26,23 @@ public:
 	void Render();
 
 	void AddComponent(std::shared_ptr<Component> component);
-	void RemoveComponent(const Component::CompType& componentType);
+	
+	//TODO: also implement a remove comp, but will probably have to have weak ptrs in the comp to other comp
+	template<typename T>
+	std::shared_ptr<T> GetComponent() const
+	{
+		auto it = std::find_if(m_Components.begin(), m_Components.end(), [](const std::shared_ptr<Component>& pComponent)
+			{
+				if (std::dynamic_pointer_cast<T>(pComponent))
+					return true;
+				return false;
+			});
 
-	std::shared_ptr<Component> GetComponent(const Component::CompType& componentType) const;
-	std::vector<std::shared_ptr<Component>> GetComponents(const Component::CompType& componentType) const;
+		if (it == m_Components.end())
+			return std::shared_ptr<T>(nullptr);
+
+		return std::dynamic_pointer_cast<T>(*it);
+	};
 
 	void SetFlag(const Flag& flag);
 	Flag GetFlag() const;

@@ -80,7 +80,7 @@ void Comp::FpsCounterComp::Update()
 void Comp::FpsCounterComp::GetNeededComponents()
 {
 	if (m_pGameObject.lock())
-		m_pTextComp = std::dynamic_pointer_cast<TextComp>(m_pGameObject.lock()->GetComponent(Component::CompType::text));;
+		m_pTextComp = m_pGameObject.lock()->GetComponent<Comp::TextComp>();
 }
 
 bool Comp::FpsCounterComp::HasAllComponents() const

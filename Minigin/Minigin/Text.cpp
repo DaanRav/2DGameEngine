@@ -116,7 +116,7 @@ void Comp::TextComp::SetColor(const glm::vec3& color)
 void Comp::TextComp::GetNeededComponents()
 {
 	if (m_pGameObject.lock())
-		m_pRenderComp = std::dynamic_pointer_cast<RenderComp>(m_pGameObject.lock()->GetComponent(Component::CompType::renderComp));
+		m_pRenderComp = m_pGameObject.lock()->GetComponent<Comp::RenderComp>();
 }
 
 bool Comp::TextComp::HasAllComponents() const

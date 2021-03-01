@@ -83,7 +83,7 @@ void Comp::TextureComp::SetTexture(const std::string& fileName)
 void Comp::TextureComp::GetNeededComponents()
 {
 	if(m_pGameObject.lock())
-		m_pRenderComp = std::dynamic_pointer_cast<RenderComp>(m_pGameObject.lock()->GetComponent(Component::CompType::renderComp));
+		m_pRenderComp = m_pGameObject.lock()->GetComponent<Comp::RenderComp>();
 }
 
 bool Comp::TextureComp::HasAllComponents() const
