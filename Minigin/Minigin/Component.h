@@ -8,7 +8,7 @@ class Component
 public: 
 	enum class CompType
 	{
-		baseComp, transform, texture, text, fpsCounter, renderComp
+		baseComp, transform, texture, text, fpsCounter, renderComp, inputTest
 	};
 
 	Component() = default;
@@ -18,6 +18,7 @@ public:
 	Component& operator=(const Component& other) = delete;
 	Component& operator=(Component&& other) = delete;
 
+	//TODO: make an initialize function here as well, to avoid setting a lot of vars in the update function
 	virtual void FixedUpdate();
 	virtual void Update();
 
@@ -29,7 +30,9 @@ protected:
 	virtual bool HasAllComponents() const = 0;
 	bool IsAttachedToGameObject() const;
 
-	//all needed components for this one to work
+	//TODO: make a vector here so the get needed comp function can be implemented here instead of having to make it in each component
+
+	//the gameobject this  component is part of
 	std::weak_ptr<GameObject> m_pGameObject{};
 };
 

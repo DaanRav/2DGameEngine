@@ -6,7 +6,6 @@
 #pragma warning(pop)
 #include "Render.h"
 
-
 namespace dae
 {
 	class Font;

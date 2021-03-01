@@ -18,6 +18,18 @@ InputManager::~InputManager()
 		delete input.second.pressedCommand;
 		input.second.pressedCommand = nullptr;
 	}
+
+	for (std::pair<KeyboardButton, Input> input : m_KeyboardCommands)
+	{
+		delete input.second.downCommand;
+		input.second.downCommand = nullptr;
+
+		delete input.second.upCommand;
+		input.second.upCommand = nullptr;
+
+		delete input.second.pressedCommand;
+		input.second.pressedCommand = nullptr;
+	}
 }
 
 bool InputManager::ProcessInput()
@@ -64,51 +76,113 @@ bool InputManager::IsPressed(const KeyboardButton& button) const
 
 void InputManager::SetCommand(const ControllerButton& button, ButtonState buttonState, Command* pCommand)
 {
-	if (buttonState == ButtonState::Down)
+	//if the command doesnt exist yet create it
+	Input input{ nullptr,nullptr,nullptr };
+	if (m_ControllerCommands.find(button) == m_ControllerCommands.end())
 	{
-		//removing the old command
-		delete m_ControllerCommands.at(button).downCommand;
-		//setting the new command
-		m_ControllerCommands.at(button).downCommand = pCommand;
+		switch (buttonState)
+		{
+		case ButtonState::Down:
+			input.downCommand = pCommand;
+			m_ControllerCommands.emplace(button, input);
+			break;
+		case ButtonState::Up:
+			input.upCommand = pCommand;
+			m_ControllerCommands.emplace(button, input);
+			break;
+		case ButtonState::Pressed:
+			input.pressedCommand = pCommand;
+			m_ControllerCommands.emplace(button, input);
+			break;
+		default:
+			break;
+		}
 	}
-	if (buttonState == ButtonState::Up)
+	//if it does exist remove the old command and put the new one in place
+	else
 	{
-		//removing the old command
-		delete m_ControllerCommands.at(button).upCommand;
-		//setting the new command
-		m_ControllerCommands.at(button).upCommand = pCommand;
-	}
-	if (buttonState == ButtonState::Pressed)
-	{
-		//removing the old command
-		delete m_ControllerCommands.at(button).pressedCommand;
-		//setting the new command
-		m_ControllerCommands.at(button).pressedCommand = pCommand;
+		switch (buttonState)
+		{
+		case ButtonState::Down:
+			//removing the old command
+			if (m_ControllerCommands.at(button).downCommand != nullptr)
+				delete m_ControllerCommands.at(button).downCommand;
+			//setting the new command
+			m_ControllerCommands.at(button).downCommand = pCommand;
+			break;
+		case ButtonState::Up:
+			//removing the old command
+			if (m_ControllerCommands.at(button).upCommand != nullptr)
+				delete m_ControllerCommands.at(button).upCommand;
+			//setting the new command
+			m_ControllerCommands.at(button).upCommand = pCommand;
+			break;
+		case ButtonState::Pressed:
+			//removing the old command
+			if (m_ControllerCommands.at(button).pressedCommand != nullptr)
+				delete m_ControllerCommands.at(button).pressedCommand;
+			//setting the new command
+			m_ControllerCommands.at(button).pressedCommand = pCommand;
+			break;
+		default:
+			break;
+		}
 	}
 }
 
 void InputManager::SetCommand(const KeyboardButton& button, ButtonState buttonState, Command* pCommand)
 {
-	if (buttonState == ButtonState::Down)
+	//if the command doesnt exist yet create it
+	Input input{ nullptr,nullptr,nullptr };
+	if (m_KeyboardCommands.find(button) == m_KeyboardCommands.end())
 	{
-		//removing the old command
-		delete m_KeyboardCommands.at(button).downCommand;
-		//setting the new command
-		m_KeyboardCommands.at(button).downCommand = pCommand;
+		switch (buttonState)
+		{
+		case ButtonState::Down:
+			input.downCommand = pCommand;
+			m_KeyboardCommands.emplace(button, input);
+			break;
+		case ButtonState::Up:
+			input.upCommand = pCommand;
+			m_KeyboardCommands.emplace(button, input);
+			break;
+		case ButtonState::Pressed:
+			input.pressedCommand = pCommand;
+			m_KeyboardCommands.emplace(button, input);
+			break;
+		default:
+			break;
+		}
 	}
-	if (buttonState == ButtonState::Up)
+	//if it does exist remove the old command and put the new one in place
+	else
 	{
-		//removing the old command
-		delete m_KeyboardCommands.at(button).upCommand;
-		//setting the new command
-		m_KeyboardCommands.at(button).upCommand = pCommand;
-	}
-	if (buttonState == ButtonState::Pressed)
-	{
-		//removing the old command
-		delete m_KeyboardCommands.at(button).pressedCommand;
-		//setting the new command
-		m_KeyboardCommands.at(button).pressedCommand = pCommand;
+		switch (buttonState)
+		{
+		case ButtonState::Down:
+			//removing the old command
+			if (m_KeyboardCommands.at(button).downCommand != nullptr)
+				delete m_KeyboardCommands.at(button).downCommand;
+			//setting the new command
+			m_KeyboardCommands.at(button).downCommand = pCommand;
+			break;
+		case ButtonState::Up:
+			//removing the old command
+			if (m_KeyboardCommands.at(button).upCommand != nullptr)
+				delete m_KeyboardCommands.at(button).upCommand;
+			//setting the new command
+			m_KeyboardCommands.at(button).upCommand = pCommand;
+			break;
+		case ButtonState::Pressed:
+			//removing the old command
+			if (m_KeyboardCommands.at(button).pressedCommand != nullptr)
+				delete m_KeyboardCommands.at(button).pressedCommand;
+			//setting the new command
+			m_KeyboardCommands.at(button).pressedCommand = pCommand;
+			break;
+		default:
+			break;
+		}
 	}
 }
 

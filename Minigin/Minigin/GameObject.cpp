@@ -43,6 +43,7 @@ void GameObject::Render()
 	renderComp->Update();
 }
 
+//TODO: make this a templated functions so i dont have to cast it each time i do it to get a component
 void GameObject::AddComponent(std::shared_ptr<Component> component)
 {
 	component->SetGameObject(weak_from_this());

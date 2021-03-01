@@ -4,57 +4,25 @@
 class Command
 {
 public:
-	Command(GameObject* pGameObject) :m_pGameObject{ pGameObject } {};
+	Command(std::weak_ptr<GameObject> pGameObject) :m_pGameObject{ pGameObject } {};
 	virtual ~Command() = default;
 	virtual void Execute() = 0;
 protected:
-	GameObject* GetGameObject() const { return m_pGameObject; };
+	std::weak_ptr<GameObject> GetGameObject() const { return m_pGameObject; };
 private:
-	GameObject* m_pGameObject{ nullptr };
+	std::weak_ptr<GameObject> m_pGameObject;
 };
 
-//commands for game objects
+//example command
 
-class JumpCommand : public Command
-{
-public:
-	JumpCommand(GameObject* pGameObject) :Command{ pGameObject } {};
-	void Execute() override 
-	{ 
-		//if (GetGameObject()) 
-			//GetGameObject()->Jump();
-	};
-};
-
-class DuckCommand : public Command
-{
-public:
-	DuckCommand(GameObject* pGameObject) :Command{ pGameObject } {};
-	void Execute() override 
-	{ 
-		//if (GetGameObject()) 
-			//GetGameObject()->Duck(); 
-	};
-};
-
-class FireCommand : public Command
-{
-public:
-	FireCommand(GameObject* pGameObject) :Command{ pGameObject } {};
-	void Execute() override 
-	{ 
-		//if (GetGameObject())
-			//GetGameObject()->Fire();
-	};
-};
-
-class FartCommand : public Command
-{
-public:
-	FartCommand(GameObject* pGameObject) :Command{ pGameObject } {};
-	void Execute() override
-	{ 
-		//if (GetGameObject())
-			//GetGameObject()->Fart();
-	};
-};
+//class JumpCommand : public Command
+//{
+//public:
+//	JumpCommand(GameObject* pGameObject) :Command{ pGameObject } {};
+//	void Execute() override 
+//	{ 
+//		//if (GetGameObject()) 
+//			//GetGameObject()->Jump();
+//	};
+//};
+ 

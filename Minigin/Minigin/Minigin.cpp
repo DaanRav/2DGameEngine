@@ -15,6 +15,7 @@
 #include "Timer.h"
 #include "FpsCounter.h"
 #include "Render.h"
+#include "InputTestComp.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -49,30 +50,42 @@ void dae::Minigin::LoadGame() const
 {	
 	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
 	
+	//background
 	auto go = std::make_shared<GameObject>();
 	go->AddComponent(std::make_shared<Comp::TransformComp>(Comp::TransformComp{ glm::vec3{0,0,0} }));
 	go->AddComponent(std::make_shared<Comp::TextureComp>(Comp::TextureComp{ "background.jpg" }));
 	go->AddComponent(std::make_shared<Comp::RenderComp>(Comp::RenderComp{}));
 	scene.Add(go);
 
+	//dae logo
 	go = std::make_shared<GameObject>();
 	go->AddComponent(std::make_shared<Comp::TransformComp>(Comp::TransformComp{ glm::vec3{216,180,0} }));
 	go->AddComponent(std::make_shared<Comp::TextureComp>(Comp::TextureComp{ "logo.png" }));
 	go->AddComponent(std::make_shared<Comp::RenderComp>(Comp::RenderComp{}));
 	scene.Add(go);
 
+	//assignment text
 	go = std::make_shared<GameObject>();
 	go->AddComponent(std::make_shared<Comp::TransformComp>(Comp::TransformComp{glm::vec3{80,20,0} }));
 	go->AddComponent(std::make_shared<Comp::TextComp>(Comp::TextComp{"Programming 4 Assignment","Lingua.otf",36 }));
 	go->AddComponent(std::make_shared<Comp::RenderComp>(Comp::RenderComp{}));
 	scene.Add(go);
 
+	//fps game object
 	go = std::make_shared<GameObject>();
 	go->AddComponent(std::make_shared<Comp::TransformComp>(Comp::TransformComp{glm::vec3{0,0,0} }));
 	go->AddComponent(std::make_shared<Comp::TextComp>(Comp::TextComp{ "00 FPS","Lingua.otf",20 }));
 	std::dynamic_pointer_cast<Comp::TextComp>(go->GetComponent(Component::CompType::text))->SetColor(glm::vec3{ 0.0f,1.0f,0.0f });
 	go->AddComponent(std::make_shared<Comp::FpsCounterComp>(Comp::FpsCounterComp{}));
 	go->AddComponent(std::make_shared<Comp::RenderComp>(Comp::RenderComp{}));
+	scene.Add(go);
+
+	//creating text to check the input manager
+	go = std::make_shared<GameObject>();
+	go->AddComponent(std::make_shared<Comp::TransformComp>(Comp::TransformComp{ glm::vec3{20,400,0} }));
+	go->AddComponent(std::make_shared<Comp::TextComp>(Comp::TextComp{ "No Input Given","Lingua.otf",20 }));
+	go->AddComponent(std::make_shared<Comp::RenderComp>(Comp::RenderComp{}));
+	go->AddComponent(std::make_shared<Comp::InputTestComp>(Comp::InputTestComp{}));
 	scene.Add(go);
 }
 

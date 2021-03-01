@@ -123,6 +123,9 @@
     <ClInclude Include="Command.h">
       <Filter>Source Files\Engine\Input</Filter>
     </ClInclude>
+    <ClInclude Include="InputTestComp.h">
+      <Filter>Source Files\Engine\GameObjects\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -199,6 +202,9 @@
     </ClCompile>
     <ClCompile Include="..\3rdParty\imgui-1.81\backends\imgui_impl_sdl.cpp">
       <Filter>ImGui</Filter>
+    </ClCompile>
+    <ClCompile Include="InputTestComp.cpp">
+      <Filter>Source Files\Engine\GameObjects\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
