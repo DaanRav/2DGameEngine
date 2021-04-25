@@ -35,8 +35,6 @@ namespace Comp
 
 		void Initialize() override;
 		void Update() override;
-		CompType GetType() const override { return CompType::inputTest; };
-
 	private:
 
 		void GetNeededComponents() override;

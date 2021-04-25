@@ -16,7 +16,6 @@ namespace Comp
 		TransformComp& operator=(TransformComp&& other);
 
 		void Initialize() override;
-		CompType GetType() const override { return CompType::transform; };
 		
 		 void SetPosition(const glm::vec3& pos);
 		 glm::vec3 GetPosition() const;

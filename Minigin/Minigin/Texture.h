@@ -20,7 +20,6 @@ namespace Comp
 
 		void Initialize() override;
 		void Update() override;
-		CompType GetType() const override { return CompType::texture; };
 
 		void SetTexture(const std::string& fileName);
 

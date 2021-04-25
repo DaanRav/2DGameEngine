@@ -24,7 +24,6 @@ namespace Comp
 
 		void Initialize() override;
 		void Update() override;
-		CompType GetType() const override { return CompType::text; };
 
 		void SetText(const std::string& newText);
 		std::string GetText() const;

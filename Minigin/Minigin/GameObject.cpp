@@ -24,7 +24,7 @@ void GameObject::FixedUpdate()
 	for (std::shared_ptr<Component> pComponent : m_Components)
 	{
 		//dont update the render component here, we do it in the render function of the game object
-		if (pComponent->GetType() == Component::CompType::renderComp)
+		if (std::dynamic_pointer_cast<Comp::RenderComp>(pComponent))
 			continue;
 
 		pComponent->FixedUpdate();
@@ -36,7 +36,7 @@ void GameObject::Update()
 	for (std::shared_ptr<Component> pComponent : m_Components)
 	{
 		//dont update the render component here, we do it in the render function of the game object
-		if (pComponent->GetType() == Component::CompType::renderComp)
+		if (std::dynamic_pointer_cast<Comp::RenderComp>(pComponent))
 			continue;
 
 		pComponent->Update();

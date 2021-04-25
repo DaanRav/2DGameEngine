@@ -6,12 +6,6 @@ class GameObject;
 class Component
 {
 public: 
-	//TODO: remove this struct and just work with the type of the components instead
-	enum class CompType
-	{
-		baseComp, transform, texture, text, fpsCounter, renderComp, inputTest
-	};
-
 	Component() = default;
 	virtual ~Component() = default;
 	Component(const Component& other) = delete;
@@ -25,7 +19,6 @@ public:
 
 	void SetGameObject(const std::weak_ptr<GameObject>& pGameObject);
 
-	virtual CompType GetType() const { return CompType::baseComp; };
 protected:
 	virtual void GetNeededComponents() = 0;
 	virtual bool HasAllComponents() const = 0;

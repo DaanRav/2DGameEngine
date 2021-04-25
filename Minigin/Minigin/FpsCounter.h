@@ -17,7 +17,6 @@ namespace Comp
 
 		void Initialize() override;
 		void Update() override;
-		CompType GetType() const override { return CompType::fpsCounter; };
 
 	private:
 		float m_RefreshRate{1.f};	//refresh the fps only every 1s
