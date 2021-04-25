@@ -22,6 +22,7 @@ namespace Comp
 		RenderComp& operator=(const RenderComp& other);
 		RenderComp& operator=(RenderComp&& other);
 
+		void Initialize() override;
 		void Update() override;
 		CompType GetType() const override { return CompType::renderComp; };
 

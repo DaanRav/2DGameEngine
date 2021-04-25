@@ -6,6 +6,7 @@ class GameObject;
 class Component
 {
 public: 
+	//TODO: remove this struct and just work with the type of the components instead
 	enum class CompType
 	{
 		baseComp, transform, texture, text, fpsCounter, renderComp, inputTest
@@ -18,7 +19,7 @@ public:
 	Component& operator=(const Component& other) = delete;
 	Component& operator=(Component&& other) = delete;
 
-	//TODO: make an initialize function here as well, to avoid setting a lot of vars in the update function
+	virtual void Initialize() = 0;
 	virtual void FixedUpdate();
 	virtual void Update();
 
@@ -29,8 +30,6 @@ protected:
 	virtual void GetNeededComponents() = 0;
 	virtual bool HasAllComponents() const = 0;
 	bool IsAttachedToGameObject() const;
-
-	//TODO: make a vector here so the get needed comp function can be implemented here instead of having to make it in each component
 
 	//the gameobject this  component is part of
 	std::weak_ptr<GameObject> m_pGameObject{};

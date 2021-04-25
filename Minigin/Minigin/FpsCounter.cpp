@@ -46,18 +46,21 @@ Comp::FpsCounterComp& Comp::FpsCounterComp::operator=(FpsCounterComp&& other)
 	return *this;
 }
 
-void Comp::FpsCounterComp::Update()
+void Comp::FpsCounterComp::Initialize()
 {
-	//check if the component can update, if he has all he needs and is attached to a gameObject
+	//check if the component is attached to a game object
 	if (!IsAttachedToGameObject())
 		return;
-	//getting the components if needed
-	if (!HasAllComponents())
-		GetNeededComponents();
-	//checking again if you got all components this time
+
+	//getting the components needed for this component
+	GetNeededComponents();
+}
+
+void Comp::FpsCounterComp::Update()
+{
+	//checking if you got all components before updating
 	if (!HasAllComponents())
 		return;
-
 
 	m_AverageFps += int(1 / pTimer->GetDeltaTime());
 	m_SampleSize++;

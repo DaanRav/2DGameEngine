@@ -33,6 +33,7 @@ namespace Comp
 		InputTestComp& operator=(const InputTestComp& other);
 		InputTestComp& operator=(InputTestComp&& other);
 
+		void Initialize() override;
 		void Update() override;
 		CompType GetType() const override { return CompType::inputTest; };
 

@@ -22,6 +22,7 @@ namespace Comp
 		TextComp& operator=(const TextComp& other);
 		TextComp& operator=(TextComp&& other);
 
+		void Initialize() override;
 		void Update() override;
 		CompType GetType() const override { return CompType::text; };
 

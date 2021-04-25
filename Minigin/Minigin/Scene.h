@@ -11,6 +11,7 @@ namespace dae
 	public:
 		void Add(const std::shared_ptr<GameObject>& object);
 
+		void Initialize();
 		void FixedUpdate();
 		void Update();
 		void Render() const;

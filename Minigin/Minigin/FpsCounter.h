@@ -15,6 +15,7 @@ namespace Comp
 		FpsCounterComp& operator=(const FpsCounterComp& other);
 		FpsCounterComp& operator=(FpsCounterComp&& other);
 
+		void Initialize() override;
 		void Update() override;
 		CompType GetType() const override { return CompType::fpsCounter; };
 

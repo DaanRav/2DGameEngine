@@ -15,12 +15,20 @@ void Scene::Add(const std::shared_ptr<GameObject>& object)
 	m_Objects.push_back(object);
 }
 
+void dae::Scene::Initialize()
+{
+	for (auto& pObject : m_Objects)
+	{
+		pObject->Initialize();
+	}
+}
+
 void Scene::FixedUpdate()
 {
-	for(auto& object : m_Objects)
+	for(auto& pObject : m_Objects)
 	{
-		if(object->GetFlag() == GameObject::Flag::active)
-			object->FixedUpdate();
+		if(pObject->GetFlag() == GameObject::Flag::active)
+			pObject->FixedUpdate();
 	}
 
 	//removing the destroyed objects
@@ -36,10 +44,10 @@ void Scene::FixedUpdate()
 
 void dae::Scene::Update()
 {
-	for (auto& object : m_Objects)
+	for (auto& pObject : m_Objects)
 	{
-		if (object->GetFlag() == GameObject::Flag::active)
-			object->Update();
+		if (pObject->GetFlag() == GameObject::Flag::active)
+			pObject->Update();
 	}
 
 	//removing the destroyed objects
@@ -57,9 +65,9 @@ void Scene::Render() const
 {
 	//look for the render component of the object and update that one
 
-	for (const auto& object : m_Objects)
+	for (const auto& pObject : m_Objects)
 	{
-		object->Render();
+		pObject->Render();
 	}
 }
 

@@ -50,15 +50,17 @@ Comp::TextureComp& Comp::TextureComp::operator=(TextureComp&& other)
 	return *this;
 }
 
-void Comp::TextureComp::Update()
+void Comp::TextureComp::Initialize()
 {
-	//check if the component can update, if he has all he needs and is attached to a gameObject
 	if (!IsAttachedToGameObject())
 		return;
-	//getting the components if needed
-	if (!HasAllComponents())
-		GetNeededComponents();
-	//checking again if you got all components this time
+
+	GetNeededComponents();
+
+}
+
+void Comp::TextureComp::Update()
+{
 	if (!HasAllComponents())
 		return;
 

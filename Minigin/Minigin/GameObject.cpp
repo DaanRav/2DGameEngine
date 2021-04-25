@@ -10,6 +10,15 @@ GameObject::~GameObject()
 {
 }
 
+void GameObject::Initialize()
+{
+	for (std::shared_ptr<Component> pComponent : m_Components)
+	{
+		pComponent->SetGameObject(weak_from_this());
+		pComponent->Initialize();
+	}
+}
+
 void GameObject::FixedUpdate()
 {
 	for (std::shared_ptr<Component> pComponent : m_Components)
@@ -44,10 +53,9 @@ void GameObject::Render()
 	renderComp->Update();
 }
 
-void GameObject::AddComponent(std::shared_ptr<Component> component)
+void GameObject::AddComponent(std::shared_ptr<Component> pComponent)
 {
-	component->SetGameObject(weak_from_this());
-	m_Components.push_back(component);
+	m_Components.push_back(pComponent);
 }
 
 void GameObject::SetFlag(const Flag& flag)

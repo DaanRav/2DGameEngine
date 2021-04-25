@@ -18,7 +18,7 @@ Comp::RenderComp::RenderComp(const RenderComp& other)
 {
 	for (std::shared_ptr<dae::Texture2D> pTexture : other.m_TexturesToRender)
 	{
-		//TODO: clean this up, i propose to just create a new empty container instead of copying the pointers
+		//TODO: clean this up, i would say to just create a new empty container instead of copying the pointers
 		//create a copy of the texture in the new render component
 		m_TexturesToRender.push_back(pTexture);
 	}
@@ -38,7 +38,7 @@ Comp::RenderComp& Comp::RenderComp::operator=(const RenderComp& other)
 {
 	for (std::shared_ptr<dae::Texture2D> pTexture : other.m_TexturesToRender)
 	{
-		//TODO: clean this up, i propose to just create a new empty container instead of copying the pointers
+		//TODO: clean this up, i would say to just create a new empty container instead of copying the pointers
 		//create a copy of the texture in the current render component
 		m_TexturesToRender.push_back(pTexture);
 	}
@@ -57,15 +57,16 @@ Comp::RenderComp& Comp::RenderComp::operator=(RenderComp&& other)
 	return *this;
 }
 
-void Comp::RenderComp::Update()
+void Comp::RenderComp::Initialize()
 {
-	//check if the component can update, if he has all he needs and is attached to a gameObject
 	if (!IsAttachedToGameObject())
 		return;
-	//getting the components if needed
-	if (!HasAllComponents())
-		GetNeededComponents();
-	//checking again if you got all components this time
+
+	GetNeededComponents();
+}
+
+void Comp::RenderComp::Update()
+{
 	if (!HasAllComponents())
 		return;
 

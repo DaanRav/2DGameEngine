@@ -28,26 +28,23 @@ Comp::InputTestComp& Comp::InputTestComp::operator=(InputTestComp&& other)
 	return *this;
 }
 
-void Comp::InputTestComp::Update()
+void Comp::InputTestComp::Initialize()
 {
-	//check if the component can update, if he has all he needs and is attached to a gameObject
 	if (!IsAttachedToGameObject())
 		return;
-	//getting the components if needed
-	if (!HasAllComponents())
-		GetNeededComponents();
-	//checking again if you got all components this time
+
+	GetNeededComponents();
+}
+
+void Comp::InputTestComp::Update()
+{
+	//checking if you got all components 
 	if (!HasAllComponents())
 		return;
-
-
 }
 
 void Comp::InputTestComp::GetNeededComponents()
 {
-	//TODO: got to work this away in an initialize function
-	//have to do it this way for now so the m_pGameObject is not a nullptr and not in the constructor
-
 	//creating the commands for the input manager
 	m_pKeyboardPress = new KeyboardPress{ m_pGameObject };
 	m_pControllerPress = new ControllerPress{ m_pGameObject };

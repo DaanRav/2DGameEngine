@@ -37,6 +37,14 @@ Comp::TransformComp& Comp::TransformComp::operator=(TransformComp&& other)
 	return *this;
 }
 
+void Comp::TransformComp::Initialize()
+{
+	if (!IsAttachedToGameObject())
+		return;
+
+	GetNeededComponents();
+}
+
 void Comp::TransformComp::SetPosition(const glm::vec3& pos)
 {
 	m_Position = pos;

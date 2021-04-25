@@ -115,6 +115,9 @@ void dae::Minigin::Run()
 		auto& sceneManager = SceneManager::GetInstance();
 		auto& input = InputManager::GetInstance();
 
+		//initializing everything in the game
+		sceneManager.Initialize();
+
 		bool doContinue = true;
 		double lag = 0.0f;
 		pTimer->Start();

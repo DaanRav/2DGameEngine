@@ -66,15 +66,18 @@ Comp::TextComp& Comp::TextComp::operator=(TextComp&& other)
 	return *this;
 }
 
-void Comp::TextComp::Update()
+void Comp::TextComp::Initialize()
 {
-	//check if the component can update, if he has all he needs and is attached to a gameObject
 	if (!IsAttachedToGameObject())
 		return;
-	//getting the components if needed
-	if (!HasAllComponents())
-		GetNeededComponents();
-	//checking again if you got all components this time
+
+	GetNeededComponents();
+
+
+}
+
+void Comp::TextComp::Update()
+{
 	if (!HasAllComponents())
 		return;
 

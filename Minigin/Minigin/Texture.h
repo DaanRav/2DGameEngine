@@ -18,6 +18,7 @@ namespace Comp
 		TextureComp& operator=(const TextureComp& other);
 		TextureComp& operator=(TextureComp&& other);
 
+		void Initialize() override;
 		void Update() override;
 		CompType GetType() const override { return CompType::texture; };
 

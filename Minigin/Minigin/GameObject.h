@@ -21,6 +21,7 @@ public:
 	GameObject& operator=(const GameObject& other) = delete;
 	GameObject& operator=(GameObject&& other) = delete;
 
+	void Initialize();
 	void FixedUpdate();
 	void Update();
 	void Render();
