@@ -1,8 +1,5 @@
 #pragma once
-#pragma warning(push)
-#pragma warning (disable:4201)
-#include <glm/vec3.hpp>
-#pragma warning(pop)
+#include <vec3.hpp>
 #include <memory>
 #include <map>
 #include "Font.h"

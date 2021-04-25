@@ -1,9 +1,6 @@
 #pragma once
-#pragma warning(push)
-#pragma warning (disable:4201)
-#include <glm/vec3.hpp>
+#include <vec3.hpp>
 #include "Component.h"
-#pragma warning(pop)
 
 namespace Comp
 {
