@@ -10,10 +10,6 @@ namespace Comp
 	public:
 		FpsCounterComp();
 		~FpsCounterComp() = default;
-		FpsCounterComp(const FpsCounterComp& other);
-		FpsCounterComp(FpsCounterComp&& other);
-		FpsCounterComp& operator=(const FpsCounterComp& other);
-		FpsCounterComp& operator=(FpsCounterComp&& other);
 
 		void Initialize() override;
 		void Update() override;

@@ -17,10 +17,6 @@ namespace Comp
 		TextComp();
 		TextComp(const std::string& text, const std::string& fontFile, int fontSize);
 		~TextComp() = default;
-		TextComp(const TextComp& other);
-		TextComp(TextComp&& other);
-		TextComp& operator=(const TextComp& other);
-		TextComp& operator=(TextComp&& other);
 
 		void Initialize() override;
 		void Update() override;

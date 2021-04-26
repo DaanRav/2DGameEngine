@@ -6,28 +6,6 @@ Comp::InputTestComp::InputTestComp()
 {
 }
 
-Comp::InputTestComp::InputTestComp(const InputTestComp& other)
-{
-	UNREFERENCED_PARAMETER(other);
-}
-
-Comp::InputTestComp::InputTestComp(InputTestComp&& other)
-{
-	UNREFERENCED_PARAMETER(other);
-}
-
-Comp::InputTestComp& Comp::InputTestComp::operator=(const InputTestComp& other)
-{
-	UNREFERENCED_PARAMETER(other);
-	return *this;
-}
-
-Comp::InputTestComp& Comp::InputTestComp::operator=(InputTestComp&& other)
-{
-	UNREFERENCED_PARAMETER(other);
-	return *this;
-}
-
 void Comp::InputTestComp::Initialize()
 {
 	if (!IsAttachedToGameObject())

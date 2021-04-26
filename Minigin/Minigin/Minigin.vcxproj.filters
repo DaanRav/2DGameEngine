@@ -126,6 +126,9 @@
     <ClInclude Include="InputTestComp.h">
       <Filter>Source Files\Engine\GameObjects\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Benchmarking.h">
+      <Filter>Source Files\Engine\Helpers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">

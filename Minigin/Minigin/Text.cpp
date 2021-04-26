@@ -28,44 +28,6 @@ Comp::TextComp::TextComp(const std::string& text, const std::string& fontFile, i
 	m_NeedsUpdate = true;
 }
 
-Comp::TextComp::TextComp(const TextComp& other)
-	:Component{}
-	, m_Text{other.m_Text}
-	, m_Color{other.m_Color}
-	, m_Font{other.m_Font}
-	, m_NeedsUpdate{true}
-{
-}
-
-Comp::TextComp::TextComp(TextComp&& other)
-	:Component{}
-	, m_Text{ other.m_Text }
-	, m_Color{ other.m_Color }
-	, m_Font{ other.m_Font }
-	, m_NeedsUpdate{true}
-{
-}
-
-Comp::TextComp& Comp::TextComp::operator=(const TextComp& other)
-{
-	m_Text = other.m_Text;
-	m_Color = other.m_Color;
-	m_Font = other.m_Font;
-	m_NeedsUpdate = true;
-
-	return *this;
-}
-
-Comp::TextComp& Comp::TextComp::operator=(TextComp&& other)
-{
-	m_Text = other.m_Text;
-	m_Color = other.m_Color;
-	m_Font = other.m_Font;
-	m_NeedsUpdate = true;
-
-	return *this;
-}
-
 void Comp::TextComp::Initialize()
 {
 	if (!IsAttachedToGameObject())

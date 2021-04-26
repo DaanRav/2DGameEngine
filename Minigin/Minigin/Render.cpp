@@ -13,50 +13,6 @@ Comp::RenderComp::RenderComp()
 {
 }
 
-Comp::RenderComp::RenderComp(const RenderComp& other)
-	: Component{}
-{
-	for (std::shared_ptr<dae::Texture2D> pTexture : other.m_TexturesToRender)
-	{
-		//TODO: clean this up, i would say to just create a new empty container instead of copying the pointers
-		//create a copy of the texture in the new render component
-		m_TexturesToRender.push_back(pTexture);
-	}
-}
-
-Comp::RenderComp::RenderComp(RenderComp&& other)
-	: Component{}
-{
-	//move the pointers of the textures in the newly constructed render component
-	for (std::shared_ptr<dae::Texture2D> pTexture : other.m_TexturesToRender)
-	{
-		m_TexturesToRender.push_back(pTexture);
-	}
-}
-
-Comp::RenderComp& Comp::RenderComp::operator=(const RenderComp& other)
-{
-	for (std::shared_ptr<dae::Texture2D> pTexture : other.m_TexturesToRender)
-	{
-		//TODO: clean this up, i would say to just create a new empty container instead of copying the pointers
-		//create a copy of the texture in the current render component
-		m_TexturesToRender.push_back(pTexture);
-	}
-
-	return *this;
-}
-
-Comp::RenderComp& Comp::RenderComp::operator=(RenderComp&& other)
-{
-	//move the pointers of the textures to this render component
-	for (std::shared_ptr<dae::Texture2D> pTexture : other.m_TexturesToRender)
-	{
-		m_TexturesToRender.push_back(pTexture);
-	}
-
-	return *this;
-}
-
 void Comp::RenderComp::Initialize()
 {
 	if (!IsAttachedToGameObject())

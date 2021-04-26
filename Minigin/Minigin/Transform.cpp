@@ -13,30 +13,6 @@ Comp::TransformComp::TransformComp(const glm::vec3& pos)
 {
 }
 
-Comp::TransformComp::TransformComp(const TransformComp& other)
-	: Component{}
-	, m_Position{ other.m_Position }
-{
-}
-
-Comp::TransformComp::TransformComp(TransformComp&& other)
-	: Component{}
-	, m_Position{ other.m_Position }
-{
-}
-
-Comp::TransformComp& Comp::TransformComp::operator=(const TransformComp& other)
-{
-	m_Position = other.m_Position;
-	return *this;
-}
-
-Comp::TransformComp& Comp::TransformComp::operator=(TransformComp&& other)
-{
-	m_Position = other.m_Position;
-	return *this;
-}
-
 void Comp::TransformComp::Initialize()
 {
 	if (!IsAttachedToGameObject())

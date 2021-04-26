@@ -10,10 +10,6 @@ namespace Comp
 		TransformComp();
 		TransformComp(const glm::vec3& pos);
 		~TransformComp() = default;
-		TransformComp(const TransformComp& other);
-		TransformComp(TransformComp&& other);
-		TransformComp& operator=(const TransformComp& other);
-		TransformComp& operator=(TransformComp&& other);
 
 		void Initialize() override;
 		

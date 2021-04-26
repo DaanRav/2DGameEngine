@@ -13,10 +13,6 @@ namespace Comp
 		TextureComp();
 		TextureComp(const std::string& fileName);
 		~TextureComp() = default;
-		TextureComp(const TextureComp& other);
-		TextureComp(TextureComp&& other);
-		TextureComp& operator=(const TextureComp& other);
-		TextureComp& operator=(TextureComp&& other);
 
 		void Initialize() override;
 		void Update() override;

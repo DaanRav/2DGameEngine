@@ -20,36 +20,6 @@ Comp::TextureComp::TextureComp(const std::string& fileName)
 	m_NeedsUpdate = true;
 }
 
-Comp::TextureComp::TextureComp(const TextureComp& other)
-	:Component{}
-	, m_FileName{other.m_FileName}
-	, m_NeedsUpdate{true}
-{
-}
-
-Comp::TextureComp::TextureComp(TextureComp&& other)
-	: Component{}
-	, m_FileName{other.m_FileName}
-	, m_NeedsUpdate{ true }
-{
-}
-
-Comp::TextureComp& Comp::TextureComp::operator=(const TextureComp& other)
-{
-	m_FileName = other.m_FileName;
-	m_NeedsUpdate = true;
-
-	return *this;
-}
-
-Comp::TextureComp& Comp::TextureComp::operator=(TextureComp&& other)
-{
-	m_FileName = other.m_FileName;
-	m_NeedsUpdate = true;
-
-	return *this;
-}
-
 void Comp::TextureComp::Initialize()
 {
 	if (!IsAttachedToGameObject())

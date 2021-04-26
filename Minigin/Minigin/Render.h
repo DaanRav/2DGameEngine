@@ -17,10 +17,7 @@ namespace Comp
 	public:
 		RenderComp();
 		~RenderComp() = default;
-		RenderComp(const RenderComp& other);
-		RenderComp(RenderComp&& other);
-		RenderComp& operator=(const RenderComp& other);
-		RenderComp& operator=(RenderComp&& other);
+
 
 		void Initialize() override;
 		void Update() override;

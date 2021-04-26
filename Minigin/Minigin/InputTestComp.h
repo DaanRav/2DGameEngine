@@ -28,10 +28,6 @@ namespace Comp
 	public:
 		InputTestComp();
 		~InputTestComp() = default;
-		InputTestComp(const InputTestComp& other);
-		InputTestComp(InputTestComp&& other);
-		InputTestComp& operator=(const InputTestComp& other);
-		InputTestComp& operator=(InputTestComp&& other);
 
 		void Initialize() override;
 		void Update() override;

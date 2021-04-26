@@ -10,42 +10,6 @@ Comp::FpsCounterComp::FpsCounterComp()
 {
 }
 
-Comp::FpsCounterComp::FpsCounterComp(const FpsCounterComp& other)
-	: Component{}
-	, m_RefreshRate{ other.m_RefreshRate }
-	, m_RefreshTime{ other.m_RefreshTime }
-	, m_AverageFps{ other.m_AverageFps }
-	, m_SampleSize{ other.m_SampleSize }
-{
-}
-
-Comp::FpsCounterComp::FpsCounterComp(FpsCounterComp&& other)
-	: Component{}
-	, m_RefreshRate{other.m_RefreshRate}
-	, m_RefreshTime{other.m_RefreshTime}
-	, m_AverageFps{other.m_AverageFps}
-	, m_SampleSize{other.m_SampleSize}
-{
-}
-
-Comp::FpsCounterComp& Comp::FpsCounterComp::operator=(const FpsCounterComp& other)
-{
-	m_RefreshRate = other.m_RefreshRate;
-	m_RefreshTime = other.m_RefreshTime;
-	m_AverageFps = other.m_AverageFps;
-	m_SampleSize = other.m_SampleSize;
-	return *this;
-}
-
-Comp::FpsCounterComp& Comp::FpsCounterComp::operator=(FpsCounterComp&& other)
-{
-	m_RefreshRate = other.m_RefreshRate;
-	m_RefreshTime = other.m_RefreshTime;
-	m_AverageFps = other.m_AverageFps;
-	m_SampleSize = other.m_SampleSize;
-	return *this;
-}
-
 void Comp::FpsCounterComp::Initialize()
 {
 	//check if the component is attached to a game object
