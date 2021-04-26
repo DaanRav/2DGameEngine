@@ -26,9 +26,9 @@ void Comp::FpsCounterComp::Update()
 	if (!HasAllComponents())
 		return;
 
-	m_AverageFps += int(1 / pTimer->GetDeltaTime());
+	m_AverageFps += int(1 / dae::Timer::GetInstance().GetDeltaTime());
 	m_SampleSize++;
-	m_RefreshTime += float(pTimer->GetDeltaTime());
+	m_RefreshTime += float(dae::Timer::GetInstance().GetDeltaTime());
 
 	if (m_RefreshTime >= m_RefreshRate)
 	{

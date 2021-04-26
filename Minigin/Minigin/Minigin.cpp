@@ -16,6 +16,7 @@
 #include "FpsCounter.h"
 #include "Render.h"
 #include "InputTestComp.h"
+#include "Benchmarking.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -107,10 +108,6 @@ void dae::Minigin::Run()
 	LoadGame();
 
 	{
-		//creating timer
-		float fixedDeltaTime{ 0.02f };
-		pTimer = new Timer{ fixedDeltaTime };
-
 		auto& renderer = Renderer::GetInstance();
 		auto& sceneManager = SceneManager::GetInstance();
 		auto& input = InputManager::GetInstance();
@@ -120,18 +117,18 @@ void dae::Minigin::Run()
 
 		bool doContinue = true;
 		double lag = 0.0f;
-		pTimer->Start();
+		Timer::GetInstance().Start();
 		while (doContinue)
 		{
-			pTimer->Update();
-			lag += pTimer->GetDeltaTime();
+			Timer::GetInstance().Update();
+			lag += Timer::GetInstance().GetDeltaTime();
 			
 			doContinue = input.ProcessInput();
 
-			while (lag >= pTimer->GetFixedDeltaTime())
+			while (lag >= Timer::GetInstance().GetFixedDeltaTime())
 			{
 				sceneManager.FixedUpdate();
-				lag -= pTimer->GetFixedDeltaTime();
+				lag -= Timer::GetInstance().GetFixedDeltaTime();
 			}
 
 			sceneManager.Update();
@@ -140,8 +137,6 @@ void dae::Minigin::Run()
 			
 		}
 	}
-	delete pTimer;
-	pTimer = nullptr;
 
 	Cleanup();
 }
