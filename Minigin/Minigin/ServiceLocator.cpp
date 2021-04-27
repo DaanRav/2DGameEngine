@@ -6,6 +6,9 @@ SoundSystem* ServiceLocator::m_SsInstance = &ServiceLocator::m_DefaultSs;
 
 SoundSystem& ServiceLocator::GetSoundSystem()
 {
+	if (!m_SsInstance)
+		m_SsInstance = &m_DefaultSs;
+
 	return *m_SsInstance;
 }
 

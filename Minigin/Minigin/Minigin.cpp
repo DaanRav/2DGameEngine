@@ -18,6 +18,8 @@
 #include "InputTestComp.h"
 #include "Benchmarking.h"
 #include "Sprite.h"
+#include "ServiceLocator.h"
+#include "SoundSystem.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -42,6 +44,8 @@ void dae::Minigin::Initialize()
 		throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
 	}
 
+	SDL_Init(SDL_INIT_AUDIO);
+
 	Renderer::GetInstance().Init(m_Window);
 }
 
@@ -51,6 +55,9 @@ void dae::Minigin::Initialize()
 void dae::Minigin::LoadGame() const
 {	
 	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
+
+	//playing music here for testing purposes
+	ServiceLocator::GetInstance().GetSoundSystem().PlaySound("../Data/sounds/door1.wav", SDL_MIX_MAXVOLUME);
 
 	//background
 	auto go = std::make_shared<GameObject>();
@@ -114,6 +121,10 @@ void dae::Minigin::Run()
 	// tell the resource manager where he can find the game data
 	ResourceManager::GetInstance().Init("../Data/");
 
+	//creating the correct sound system
+	SoundSystem* pSoundSystem{ new LoggingSoundSystem(new SdlSoundSystem) };
+	ServiceLocator::GetInstance().RegisterSoundSystem(pSoundSystem);
+
 	LoadGame();
 
 	{
@@ -146,6 +157,10 @@ void dae::Minigin::Run()
 			
 		}
 	}
+
+	//removing sound system
+	delete pSoundSystem;
+	pSoundSystem = nullptr;
 
 	Cleanup();
 }

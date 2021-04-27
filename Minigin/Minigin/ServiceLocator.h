@@ -1,9 +1,12 @@
 #pragma once
+#include "Singleton.h"
 
 class SoundSystem;
 class NullSoundSystem;
 
-class ServiceLocator final
+using namespace dae;
+
+class ServiceLocator final : public Singleton<ServiceLocator>
 {
 public:
 	//sound
@@ -11,6 +14,9 @@ public:
 	static void RegisterSoundSystem(SoundSystem* ss);
 	//input
 private:
+	friend class Singleton<ServiceLocator>;
+	ServiceLocator() = default;
+
 	//sound
 	static SoundSystem* m_SsInstance;
 	static NullSoundSystem m_DefaultSs;

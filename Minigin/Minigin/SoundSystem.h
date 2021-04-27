@@ -41,6 +41,7 @@ class LoggingSoundSystem final : public SoundSystem
 {
 public:
 	LoggingSoundSystem(SoundSystem* ss, bool muted = false);
+	~LoggingSoundSystem();
 	
 	void Mute() { m_Muted = true; };
 	void UnMute() { m_Muted = false; };

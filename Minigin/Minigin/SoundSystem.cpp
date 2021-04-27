@@ -28,6 +28,12 @@ LoggingSoundSystem::LoggingSoundSystem(SoundSystem* ss, bool muted)
 {
 }
 
+LoggingSoundSystem::~LoggingSoundSystem()
+{
+	delete m_pRealSs;
+	m_pRealSs = nullptr;
+}
+
 void LoggingSoundSystem::PlayMusic(const char* fileName, const float volume)
 {
 	if (!m_Muted)
