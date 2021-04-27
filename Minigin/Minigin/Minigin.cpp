@@ -68,15 +68,15 @@ void dae::Minigin::LoadGame() const
 	
 	//assignment text
 	go = std::make_shared<GameObject>();
-	go->AddComponent(std::make_shared<Comp::TransformComp>(glm::vec3{80,20,0}));
-	go->AddComponent(std::make_shared<Comp::TextComp>("Programming 4 Assignment","Lingua.otf",36));
+	go->AddComponent(std::make_shared<Comp::TransformComp>(glm::vec3{80,50,0}));
+	go->AddComponent(std::make_shared<Comp::TextComp>("Programming 4 Assignment","q-bert-revised/q-bert-revised.ttf",20));
 	go->AddComponent(std::make_shared<Comp::RenderComp>());
 	scene.Add(go);
 	
 	//fps game object
 	go = std::make_shared<GameObject>();
 	go->AddComponent(std::make_shared<Comp::TransformComp>(glm::vec3{0,0,0}));
-	go->AddComponent(std::make_shared<Comp::TextComp>("00 FPS","Lingua.otf",20));
+	go->AddComponent(std::make_shared<Comp::TextComp>("00 FPS","q-bert-revised/q-bert-revised.ttf",20));
 	go->GetComponent<Comp::TextComp>()->SetColor(glm::vec3{ 0.0f,1.0f,0.0f });
 	go->AddComponent(std::make_shared<Comp::FpsCounterComp>());
 	go->AddComponent(std::make_shared<Comp::RenderComp>());
