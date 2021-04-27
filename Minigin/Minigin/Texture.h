@@ -18,6 +18,8 @@ namespace Comp
 		void Update() override;
 
 		void SetTexture(const std::string& fileName);
+		void SetSrcRect(const glm::vec4& srcRect);
+		void SetSize(const glm::vec2& size);
 
 	private:
 		std::string m_FileName{};

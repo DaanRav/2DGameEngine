@@ -17,6 +17,7 @@
 #include "Render.h"
 #include "InputTestComp.h"
 #include "Benchmarking.h"
+#include "Sprite.h"
 
 using namespace std;
 using namespace std::chrono;
@@ -87,6 +88,14 @@ void dae::Minigin::LoadGame() const
 	go->AddComponent(std::make_shared<Comp::TextComp>("No Input Given","Lingua.otf",20));
 	go->AddComponent(std::make_shared<Comp::RenderComp>());
 	go->AddComponent(std::make_shared<Comp::InputTestComp>());
+	scene.Add(go);
+
+	//creating a game object with a sprite component
+	go = std::make_shared<GameObject>();
+	go->AddComponent(std::make_shared<Comp::TransformComp>(glm::vec3{ 0,200,0 }));
+	go->AddComponent(std::make_shared<Comp::TextureComp>("SpriteTest.png"));
+	go->AddComponent(std::make_shared<Comp::RenderComp>());
+	go->AddComponent(std::make_shared<Comp::Sprite>(10, 54, 44, glm::vec2{ 2,48 }, 0.1f));
 	scene.Add(go);
 }
 

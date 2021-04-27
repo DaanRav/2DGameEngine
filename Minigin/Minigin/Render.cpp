@@ -39,7 +39,8 @@ void Comp::RenderComp::Update()
 
 			glm::vec3 pos{ m_pTransformComp->GetPosition() };
 
-			dae::Renderer::GetInstance().RenderTexture(*pTexture, pos.x, pos.y);
+			dae::Renderer::GetInstance().RenderTexture(*pTexture, pTexture->GetSrcRect(), pos.x, pos.y, pTexture->GetDestSize().x, pTexture->GetDestSize().y);
+		
 		});
 }
 

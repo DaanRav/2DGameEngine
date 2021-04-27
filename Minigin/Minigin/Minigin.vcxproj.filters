@@ -129,6 +129,9 @@
     <ClInclude Include="Benchmarking.h">
       <Filter>Source Files\Engine\Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="Sprite.h">
+      <Filter>Source Files\Engine\GameObjects\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="MiniginPCH.cpp">
@@ -207,6 +210,9 @@
       <Filter>ImGui</Filter>
     </ClCompile>
     <ClCompile Include="InputTestComp.cpp">
+      <Filter>Source Files\Engine\GameObjects\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite.cpp">
       <Filter>Source Files\Engine\GameObjects\Components</Filter>
     </ClCompile>
   </ItemGroup>

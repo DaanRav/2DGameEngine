@@ -7,8 +7,6 @@ Comp::TextureComp::TextureComp()
 	:Component{}
 {
 	GetNeededComponents();
-	//if it doesnt have anything dont update it
-	m_NeedsUpdate = false;
 }
 
 Comp::TextureComp::TextureComp(const std::string& fileName)
@@ -16,8 +14,6 @@ Comp::TextureComp::TextureComp(const std::string& fileName)
 	, m_FileName{ fileName }
 {
 	GetNeededComponents();
-	//update it to create the texture in the render component
-	m_NeedsUpdate = true;
 }
 
 void Comp::TextureComp::Initialize()
@@ -27,6 +23,15 @@ void Comp::TextureComp::Initialize()
 
 	GetNeededComponents();
 
+	if (!HasAllComponents())
+		return;
+
+	if (!m_FileName.empty())
+	{
+		CreateTexture();
+		//add the new texture to the render component so its rendered
+		m_pRenderComp->AddTexture(m_pTexture);
+	}
 }
 
 void Comp::TextureComp::Update()
@@ -50,6 +55,16 @@ void Comp::TextureComp::SetTexture(const std::string& fileName)
 {
 	m_FileName = fileName;
 	m_NeedsUpdate = true;
+}
+
+void Comp::TextureComp::SetSrcRect(const glm::vec4& srcRect)
+{
+	m_pTexture->SetSrcRect( srcRect );
+}
+
+void Comp::TextureComp::SetSize(const glm::vec2& size)
+{
+	m_pTexture->SetDestSize(size);
 }
 
 void Comp::TextureComp::GetNeededComponents()
