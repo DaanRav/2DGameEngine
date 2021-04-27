@@ -63,7 +63,7 @@
  * SDL_AUDIO_ALLOW_CHANNELS_CHANGE      Allow any number of channels (e.g. AUDIO_CHANNELS being 2, allow actual 1)
  * SDL_AUDIO_ALLOW_ANY_CHANGE           Allow all changes above
  */
-#define SDL_AUDIO_ALLOW_CHANGES SDL_AUDIO_ALLOW_ANY_CHANGE
+#define SDL_AUDIO_ALLOW_CHANGES SDL_AUDIO_ALLOW_FREQUENCY_CHANGE
 
 /*
  * Definition for the game global sound device
