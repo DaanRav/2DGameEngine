@@ -47,6 +47,10 @@ void dae::Minigin::Initialize()
 	SDL_Init(SDL_INIT_AUDIO);
 
 	Renderer::GetInstance().Init(m_Window);
+
+	//creating the correct sound system
+	m_pSoundSystem = new LoggingSoundSystem(new SdlSoundSystem);
+	ServiceLocator::GetInstance().RegisterSoundSystem(m_pSoundSystem);
 }
 
 /**
@@ -108,6 +112,10 @@ void dae::Minigin::LoadGame() const
 
 void dae::Minigin::Cleanup()
 {
+	//removing sound system
+	delete m_pSoundSystem;
+	m_pSoundSystem = nullptr;
+
 	Renderer::GetInstance().Destroy();
 	SDL_DestroyWindow(m_Window);
 	m_Window = nullptr;
@@ -120,10 +128,6 @@ void dae::Minigin::Run()
 
 	// tell the resource manager where he can find the game data
 	ResourceManager::GetInstance().Init("../Data/");
-
-	//creating the correct sound system
-	SoundSystem* pSoundSystem{ new LoggingSoundSystem(new SdlSoundSystem) };
-	ServiceLocator::GetInstance().RegisterSoundSystem(pSoundSystem);
 
 	LoadGame();
 
@@ -157,10 +161,6 @@ void dae::Minigin::Run()
 			
 		}
 	}
-
-	//removing sound system
-	delete pSoundSystem;
-	pSoundSystem = nullptr;
 
 	Cleanup();
 }
