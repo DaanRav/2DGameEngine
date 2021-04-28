@@ -1,6 +1,65 @@
 #include "SoundSystem.h"
-#include "audio.c"
 #include <iostream>
+#include "audio.c"
+
+SoundSystem::SoundSystem()
+{
+	m_SoundThread = std::thread(&SoundSystem::HandleSoundQueue, this);
+}
+
+SoundSystem::~SoundSystem()
+{
+	m_ShuttingDown = true;
+	m_SoundThread.join();
+}
+
+void SoundSystem::PlayMusic(const std::string& soundName, const float volume)
+{
+	SoundQueue sound{};
+	sound.soundName = soundName;
+	sound.volume = (int)volume;
+	sound.isMusic = true;
+
+	m_QueMutex.lock();
+	m_SoundQueue.push(sound);
+	m_QueMutex.unlock();
+}
+
+void SoundSystem::PlaySound(const std::string& soundName, const float volume)
+{
+	SoundQueue sound{};
+	sound.soundName = soundName;
+	sound.volume = (int)volume;
+	sound.isMusic = false;
+
+	m_QueMutex.lock();
+	m_SoundQueue.push(sound);
+	m_QueMutex.unlock();
+}
+
+void SoundSystem::HandleSoundQueue()
+{
+	while (!m_ShuttingDown)
+	{
+		SoundQueue sound{};
+
+		m_QueMutex.lock();
+		if (m_SoundQueue.size() > 0)
+		{
+			sound = m_SoundQueue.front();
+			m_SoundQueue.pop();
+		}
+		m_QueMutex.unlock();
+
+		if (!sound.soundName.empty())
+		{
+			if (sound.isMusic)
+				this->PlayMusicSystemSpecific(sound.soundName, (float)sound.volume);
+			else
+				this->PlaySoundSystemSpecific(sound.soundName, (float)sound.volume);
+		}
+	}
+}
 
 SdlSoundSystem::SdlSoundSystem()
 {
@@ -9,17 +68,34 @@ SdlSoundSystem::SdlSoundSystem()
 
 SdlSoundSystem::~SdlSoundSystem()
 {
+	for (std::pair<std::string, Audio*> pair : m_Sounds)
+	{
+		freeAudio(pair.second);
+	}
+
 	endAudio();
 }
 
-void SdlSoundSystem::PlayMusic(const char* fileName, const float volume)
+void SdlSoundSystem::LoadSound(const std::string& soundName, const char* fileName, bool loop)
 {
-	playMusic(fileName, (int)volume);
+	Audio* audio{ createAudio(fileName,(uint8_t)loop,SDL_MIX_MAXVOLUME) };
+	m_Sounds.emplace(soundName, audio);
 }
 
-void SdlSoundSystem::PlaySound(const char* fileName, const float volume)
+void SdlSoundSystem::RemoveSound(const std::string& soundName)
 {
-	playSound(fileName, (int)volume);
+	freeAudio(m_Sounds.at(soundName));
+	m_Sounds.erase(soundName);
+}
+
+void SdlSoundSystem::PlaySoundSystemSpecific(const std::string& soundName, const float volume)
+{
+	playSoundFromMemory(m_Sounds.at(soundName), (int)volume);
+}
+
+void SdlSoundSystem::PlayMusicSystemSpecific(const std::string& soundName, const float volume)
+{
+	playMusicFromMemory(m_Sounds.at(soundName), (int)volume);
 }
 
 LoggingSoundSystem::LoggingSoundSystem(SoundSystem* ss, bool muted)
@@ -34,18 +110,35 @@ LoggingSoundSystem::~LoggingSoundSystem()
 	m_pRealSs = nullptr;
 }
 
-void LoggingSoundSystem::PlayMusic(const char* fileName, const float volume)
+void LoggingSoundSystem::LoadSound(const std::string& soundName, const char* fileName, bool loop)
 {
-	if (!m_Muted)
-		m_pRealSs->PlayMusic(fileName, volume);
+	m_pRealSs->LoadSound(soundName, fileName, loop);
 
-	std::cout << "LoggingSoundSystem: Playing music " << fileName << " at volume " << (int)volume << '\n';
+	std::cout << "LoggingSoundSystem: Loading sound " << fileName << " as " << soundName << '\n';
 }
 
-void LoggingSoundSystem::PlaySound(const char* fileName, const float volume)
+void LoggingSoundSystem::RemoveSound(const std::string& soundName)
+{
+	m_pRealSs->RemoveSound(soundName);
+
+	std::cout << "LoggingSoundSystem: Removing sound " << soundName << '\n';
+}
+
+void LoggingSoundSystem::PlaySoundSystemSpecific(const std::string& soundName, const float volume)
 {
 	if (!m_Muted)
-		m_pRealSs->PlaySound(fileName, volume);
+		m_pRealSs->PlaySound(soundName, volume);
 
-	std::cout << "LoggingSoundSystem: Playing sound " << fileName << " at volume " << (int)volume << '\n';
+	std::cout << "LoggingSoundSystem: Playing sound " << soundName << " at volume " << (int)volume << '\n';
+
 }
+
+void LoggingSoundSystem::PlayMusicSystemSpecific(const std::string& soundName, const float volume)
+{
+	if (!m_Muted)
+		m_pRealSs->PlayMusic(soundName, volume);
+
+	std::cout << "LoggingSoundSystem: Playing music " << soundName << " at volume " << (int)volume << '\n';
+}
+
+

@@ -61,7 +61,8 @@ void dae::Minigin::LoadGame() const
 	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
 
 	//playing music here for testing purposes
-	ServiceLocator::GetInstance().GetSoundSystem().PlayMusic("../Data/music/highlands.wav", SDL_MIX_MAXVOLUME);
+	ServiceLocator::GetInstance().GetSoundSystem().LoadSound("BgMusic", "../Data/music/highlands.wav", true);
+	ServiceLocator::GetInstance().GetSoundSystem().PlayMusic("BgMusic", SDL_MIX_MAXVOLUME);
 
 	//background
 	auto go = std::make_shared<GameObject>();
