@@ -13,7 +13,7 @@ public:
 	virtual ~SoundSystem();
 
 	void PlayMusic(const std::string& soundName, const float volume);
-	void PlaySound(const std::string& soundName, const float volume);
+	void PlayASound(const std::string& soundName, const float volume);
 
 	virtual void LoadSound(const std::string& soundName, const char* fileName, bool loop = false) = 0;
 	virtual void RemoveSound(const std::string& soundName) = 0;
@@ -74,7 +74,7 @@ public:
 	void LoadSound(const std::string& soundName, const char* fileName, bool loop = false);
 	void RemoveSound(const std::string& soundName);
 
-private:
+protected:
 	void PlaySoundSystemSpecific(const std::string& soundName, const float volume);
 	void PlayMusicSystemSpecific(const std::string& soundName, const float volume);
 
@@ -89,7 +89,7 @@ public:
 
 	void LoadSound(const std::string& soundName, const char* fileName, bool loop = false);
 	void RemoveSound(const std::string& soundName);
-private:
+protected:
 	void PlaySoundSystemSpecific(const std::string& soundName, const float volume);
 	void PlayMusicSystemSpecific(const std::string& soundName, const float volume);
 

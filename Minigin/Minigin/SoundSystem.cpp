@@ -25,7 +25,7 @@ void SoundSystem::PlayMusic(const std::string& soundName, const float volume)
 	m_QueMutex.unlock();
 }
 
-void SoundSystem::PlaySound(const std::string& soundName, const float volume)
+void SoundSystem::PlayASound(const std::string& soundName, const float volume)
 {
 	SoundQueue sound{};
 	sound.soundName = soundName;
@@ -127,7 +127,7 @@ void LoggingSoundSystem::RemoveSound(const std::string& soundName)
 void LoggingSoundSystem::PlaySoundSystemSpecific(const std::string& soundName, const float volume)
 {
 	if (!m_Muted)
-		m_pRealSs->PlaySound(soundName, volume);
+		m_pRealSs->PlayASound(soundName, volume);
 
 	std::cout << "LoggingSoundSystem: Playing sound " << soundName << " at volume " << (int)volume << '\n';
 

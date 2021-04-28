@@ -1,6 +1,8 @@
 #include "InputTestComp.h"
 #include "Text.h"
 #include "InputManager.h"
+#include "ServiceLocator.h"
+#include "SoundSystem.h"
 
 Comp::InputTestComp::InputTestComp()
 {
@@ -12,6 +14,9 @@ void Comp::InputTestComp::Initialize()
 		return;
 
 	GetNeededComponents();
+
+	//load the needed sounds here
+	ServiceLocator::GetInstance().GetSoundSystem().LoadSound("door", "../Data/sounds/door1.wav", false);
 }
 
 void Comp::InputTestComp::Update()
@@ -46,6 +51,7 @@ void KeyboardPress::Execute()
 	if (pTextComp == nullptr)
 		return;
 
+	ServiceLocator::GetInstance().GetSoundSystem().PlayASound("door", SDL_MIX_MAXVOLUME);
 	pTextComp->SetText("KeyboardPressed");
 }
 
@@ -55,5 +61,6 @@ void ControllerPress::Execute()
 	if (pTextComp == nullptr)
 		return;
 
+	ServiceLocator::GetInstance().GetSoundSystem().PlayASound("door", SDL_MIX_MAXVOLUME);
 	pTextComp->SetText("ControllerPressed");
 }
