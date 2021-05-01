@@ -26,8 +26,10 @@ void Comp::RenderComp::Update()
 	if (!HasAllComponents())
 		return;
 
-	//loop through all the textures we need to render and render them
+	if (!m_Enable)
+		return;
 
+	//loop through all the textures we need to render and render them
 	std::for_each(m_TexturesToRender.begin(), m_TexturesToRender.end(), 
 		[this]
 		(const std::shared_ptr<dae::Texture2D>& pTexture)

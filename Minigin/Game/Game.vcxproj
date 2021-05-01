@@ -171,10 +171,12 @@ xcopy "$(SolutionDir)3rdParty\SDL2_ttf\lib\$(PlatformTarget)\*.dll" "$(OutputPat
     </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="FlickerComp.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="QbertGame.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="FlickerComp.h" />
     <ClInclude Include="QbertGame.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

@@ -24,6 +24,9 @@ namespace Comp
 
 		void AddTexture(const std::shared_ptr<dae::Texture2D>& pTexture);
 		void RemoveTexture(const std::shared_ptr<dae::Texture2D>& pTexture);
+
+		bool IsEnabled() const { return m_Enable; };
+		void SetEnable(bool enable) { m_Enable = enable; };
 	
 	private:
 		void GetNeededComponents() override;
@@ -33,6 +36,7 @@ namespace Comp
 
 		//all needed components for this one to work
 		std::shared_ptr<TransformComp> m_pTransformComp{nullptr};
+		bool m_Enable{ true };
 	};
 }
 

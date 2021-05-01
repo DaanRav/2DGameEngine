@@ -12,6 +12,7 @@
 #include <Texture.h>
 #include <Text.h>
 #include <FpsCounter.h>
+#include "FlickerComp.h"
 
 void QbertGame::LoadLevelScene()
 {
@@ -34,8 +35,22 @@ void QbertGame::LoadLevelScene()
     go->AddComponent(std::make_shared<Comp::RenderComp>());
     LevelScene.Add(go);
 
+    //the circle under the level text
+    go = std::make_shared<GameObject>();
+    go->AddComponent(std::make_shared<Comp::TransformComp>(glm::vec3{ (m_WindowWidth.x - (32 * 2)) / 2, m_WindowWidth.y - 100, 0 }));
+    go->GetComponent<Comp::TransformComp>()->SetScale(glm::vec3{ 2,2,2 });
+    go->AddComponent(std::make_shared<Comp::TextureComp>("Circle.png"));
+    go->AddComponent(std::make_shared<Comp::RenderComp>());
+    LevelScene.Add(go);
 
-
+    //Level Number
+    go = std::make_shared<GameObject>();
+    go->AddComponent(std::make_shared<Comp::TransformComp>(glm::vec3{ m_WindowWidth.x / 2.f - 13,m_WindowWidth.y - 85,0 }));
+    go->AddComponent(std::make_shared<Comp::TextComp>("1", "q-bert-revised/q-bert-revised.ttf", 30));
+    go->GetComponent<Comp::TextComp>()->SetColor(glm::vec3{ 1.0f,1.0f,0.0f });
+    go->AddComponent(std::make_shared<Comp::RenderComp>());
+    go->AddComponent(std::make_shared<Comp::FlickerComp>(0.6f));
+    LevelScene.Add(go);
 
 }
 
