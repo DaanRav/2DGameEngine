@@ -30,3 +30,13 @@ glm::vec3 Comp::TransformComp::GetPosition() const
 {
 	return m_Position;
 }
+
+void Comp::TransformComp::SetScale(const glm::vec3& scale)
+{
+	m_Scale = scale;
+}
+
+glm::vec3 Comp::TransformComp::GetScale() const
+{
+	return m_Scale;
+}

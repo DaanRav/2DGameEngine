@@ -8,8 +8,8 @@ namespace dae
 	class Minigin
 	{
 	public:
-		void Initialize();
-		void LoadGame() const;
+		void Initialize(const char* windowName, int windowWidth = 640, int windowHeight = 480);
+		void LoadDemoScene() const;
 		void Cleanup();
 		void Run();
 	private:

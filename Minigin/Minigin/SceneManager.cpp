@@ -34,6 +34,13 @@ void dae::SceneManager::Render()
 	}
 }
 
+bool dae::SceneManager::HasScene() const
+{
+	if (m_Scenes.empty())
+		return false;
+	return true;
+}
+
 dae::Scene& dae::SceneManager::CreateScene(const std::string& name)
 {
 	const auto pScene = std::shared_ptr<Scene>(new Scene(name));

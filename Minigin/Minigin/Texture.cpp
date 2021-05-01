@@ -67,6 +67,11 @@ void Comp::TextureComp::SetSize(const glm::vec2& size)
 	m_pTexture->SetDestSize(size);
 }
 
+glm::vec2 Comp::TextureComp::GetTexSize() const
+{
+	return m_pTexture->GetDestSize();
+}
+
 void Comp::TextureComp::GetNeededComponents()
 {
 	if(m_pGameObject.lock())

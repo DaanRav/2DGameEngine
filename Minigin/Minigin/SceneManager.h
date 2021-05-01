@@ -13,6 +13,7 @@ namespace dae
 		void FixedUpdate();
 		void Update();
 		void Render();
+		bool HasScene() const;
 	private:
 		friend class Singleton<SceneManager>;
 		SceneManager() = default;

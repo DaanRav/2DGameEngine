@@ -24,7 +24,7 @@
 using namespace std;
 using namespace std::chrono;
 
-void dae::Minigin::Initialize()
+void dae::Minigin::Initialize(const char* windowName, int windowWidth, int windowHeight)
 {
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) 
 	{
@@ -32,11 +32,11 @@ void dae::Minigin::Initialize()
 	}
 
 	m_Window = SDL_CreateWindow(
-		"Programming 4 assignment",
+		windowName,
 		SDL_WINDOWPOS_UNDEFINED,
 		SDL_WINDOWPOS_UNDEFINED,
-		640,
-		480,
+		windowWidth,
+		windowHeight,
 		SDL_WINDOW_OPENGL
 	);
 	if (m_Window == nullptr) 
@@ -56,7 +56,7 @@ void dae::Minigin::Initialize()
 /**
  * Code constructing the scene world starts here
  */
-void dae::Minigin::LoadGame() const
+void dae::Minigin::LoadDemoScene() const
 {	
 	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
 
@@ -125,12 +125,9 @@ void dae::Minigin::Cleanup()
 
 void dae::Minigin::Run()
 {
-	Initialize();
-
-	// tell the resource manager where he can find the game data
-	ResourceManager::GetInstance().Init("../Data/");
-
-	LoadGame();
+	//if no scene is loaded in the scenemanager then load the demo scene
+	if(!SceneManager::GetInstance().HasScene())
+		LoadDemoScene();
 
 	{
 		auto& renderer = Renderer::GetInstance();

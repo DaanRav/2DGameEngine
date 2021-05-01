@@ -21,6 +21,8 @@ namespace Comp
 		void SetSrcRect(const glm::vec4& srcRect);
 		void SetSize(const glm::vec2& size);
 
+		glm::vec2 GetTexSize() const;
+
 	private:
 		std::string m_FileName{};
 		bool m_NeedsUpdate{ false };
