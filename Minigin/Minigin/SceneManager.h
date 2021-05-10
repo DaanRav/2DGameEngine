@@ -8,6 +8,7 @@ namespace dae
 	{
 	public:
 		Scene& CreateScene(const std::string& name);
+		std::shared_ptr<Scene> GetScene(const std::string& name) const;
 
 		void Initialize();
 		void FixedUpdate();

@@ -29,7 +29,7 @@ void QbertGame::LoadLevelScene()
 
     //displaying the level text on the screen
     go = std::make_shared<GameObject>();
-    go->AddComponent(std::make_shared<Comp::TransformComp>(glm::vec3{ (m_WindowWidth.x - (192*2))/2, m_WindowWidth.y-220, 0 }));
+    go->AddComponent(std::make_shared<Comp::TransformComp>(glm::vec3{ (m_WindowSize.x - (192*2))/2, m_WindowSize.y-220, 0 }));
     go->GetComponent<Comp::TransformComp>()->SetScale(glm::vec3{ 2,2,2 });
     go->AddComponent(std::make_shared<Comp::TextureComp>("Level.png"));
     go->AddComponent(std::make_shared<Comp::RenderComp>());
@@ -37,7 +37,7 @@ void QbertGame::LoadLevelScene()
 
     //the circle under the level text
     go = std::make_shared<GameObject>();
-    go->AddComponent(std::make_shared<Comp::TransformComp>(glm::vec3{ (m_WindowWidth.x - (32 * 2)) / 2, m_WindowWidth.y - 100, 0 }));
+    go->AddComponent(std::make_shared<Comp::TransformComp>(glm::vec3{ (m_WindowSize.x - (32 * 2)) / 2, m_WindowSize.y - 100, 0 }));
     go->GetComponent<Comp::TransformComp>()->SetScale(glm::vec3{ 2,2,2 });
     go->AddComponent(std::make_shared<Comp::TextureComp>("Circle.png"));
     go->AddComponent(std::make_shared<Comp::RenderComp>());
@@ -45,16 +45,53 @@ void QbertGame::LoadLevelScene()
 
     //Level Number
     go = std::make_shared<GameObject>();
-    go->AddComponent(std::make_shared<Comp::TransformComp>(glm::vec3{ m_WindowWidth.x / 2.f - 13,m_WindowWidth.y - 85,0 }));
+    go->AddComponent(std::make_shared<Comp::TransformComp>(glm::vec3{ m_WindowSize.x / 2.f - 13,m_WindowSize.y - 85,0 }));
     go->AddComponent(std::make_shared<Comp::TextComp>("1", "q-bert-revised/q-bert-revised.ttf", 30));
     go->GetComponent<Comp::TextComp>()->SetColor(glm::vec3{ 1.0f,1.0f,0.0f });
     go->AddComponent(std::make_shared<Comp::RenderComp>());
     go->AddComponent(std::make_shared<Comp::FlickerComp>(0.6f));
     LevelScene.Add(go);
 
+    //createGrid
+    LoadTiles2x2("LevelScreen", glm::vec2{ m_WindowSize.x / 2,(m_WindowSize.y / 2)-170 }, glm::vec2{ 2,2 });
 }
 
 glm::vec2 QbertGame::GetWindowDimentions() const
 {
-    return m_WindowWidth;
+    return m_WindowSize;
+}
+
+void QbertGame::LoadTiles2x2(const std::string& sceneName, const glm::vec2& pos, const glm::vec2& scale)
+{
+    const int tileNrs{ 4 };
+
+    //some fixed vars based on the sprites
+    glm::vec2 tileTexSize{ 32,32 };
+    glm::vec2 tileTexPos{ 0, 224 };
+    int rowOverlap{ 8 };
+
+    std::shared_ptr<dae::Scene> scene = dae::SceneManager::GetInstance().GetScene(sceneName);
+    glm::vec3 tilePosArray[tileNrs]
+    {
+        glm::vec3{pos.x - 16 * scale.x, pos.y - 8 * scale.y, 0},
+        glm::vec3{pos.x - 32 * scale.x,pos.y + 16 * scale.y,0},
+        glm::vec3{pos.x,pos.y + 16 * scale.y,0},
+        glm::vec3{pos.x - 16 * scale.x,pos.y + 40 * scale.y,0}
+    };
+
+
+    for (int i{ 0 }; i < tileNrs; ++i)
+    {
+        auto go = std::make_shared<GameObject>();
+        go->AddComponent(std::make_shared<Comp::TransformComp>(tilePosArray[i]));
+        go->GetComponent<Comp::TransformComp>()->SetScale(glm::vec3{ scale.x,scale.y,0 });
+        go->AddComponent(std::make_shared<Comp::TextureComp>("Arcade - QBert - General Sprites.png"));
+        go->GetComponent<Comp::TextureComp>()->SetSrcRect(glm::vec4{ tileTexPos.x, tileTexPos.y, tileTexSize.x, tileTexSize.y });
+        go->GetComponent<Comp::TextureComp>()->SetDestSize(glm::vec2{ tileTexSize.x,tileTexSize.y });
+        go->AddComponent(std::make_shared<Comp::RenderComp>());
+        scene->Add(go);
+    }
+
+
+
 }

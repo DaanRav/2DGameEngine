@@ -14,6 +14,10 @@ Comp::TextureComp::TextureComp(const std::string& fileName)
 	, m_FileName{ fileName }
 {
 	GetNeededComponents();
+
+	CreateTexture();
+	m_SrcRect = m_pTexture->GetSrcRect();
+	m_DestSize = m_pTexture->GetDestSize();
 }
 
 void Comp::TextureComp::Initialize()
@@ -46,6 +50,8 @@ void Comp::TextureComp::Update()
 			m_pRenderComp->RemoveTexture(m_pTexture);
 		//create the new texture that needs to be rendered
 		CreateTexture();
+		m_pTexture->SetSrcRect(m_SrcRect);
+		m_pTexture->SetDestSize(m_DestSize);
 		//add the new texture to the render component so its rendered
 		m_pRenderComp->AddTexture(m_pTexture);
 	}
@@ -59,17 +65,22 @@ void Comp::TextureComp::SetTexture(const std::string& fileName)
 
 void Comp::TextureComp::SetSrcRect(const glm::vec4& srcRect)
 {
-	m_pTexture->SetSrcRect( srcRect );
+	m_SrcRect = srcRect;
+	m_NeedsUpdate = true;
 }
 
-void Comp::TextureComp::SetSize(const glm::vec2& size)
+void Comp::TextureComp::SetDestSize(const glm::vec2& size)
 {
-	m_pTexture->SetDestSize(size);
+	m_DestSize = size;
+	m_NeedsUpdate = true;
 }
 
 glm::vec2 Comp::TextureComp::GetTexSize() const
 {
-	return m_pTexture->GetDestSize();
+	if(m_pTexture)
+		return m_pTexture->GetDestSize();
+
+	return glm::vec2{};
 }
 
 void Comp::TextureComp::GetNeededComponents()
@@ -88,4 +99,5 @@ bool Comp::TextureComp::HasAllComponents() const
 void Comp::TextureComp::CreateTexture()
 {
 	m_pTexture = dae::ResourceManager::GetInstance().LoadTexture(m_FileName);
+	m_NeedsUpdate = true;
 }
