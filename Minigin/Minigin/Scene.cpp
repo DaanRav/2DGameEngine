@@ -8,6 +8,18 @@ unsigned int Scene::m_IdCounter = 0;
 
 Scene::Scene(const std::string& name) : m_Name(name) {}
 
+std::shared_ptr<GameObject> dae::Scene::GetGameObject(const std::wstring& name)
+{
+	auto it = std::find_if(m_Objects.begin(), m_Objects.end(), [name](const std::shared_ptr<GameObject>& object)
+		{
+			if (object->GetName() == name)
+				return true;
+			return false;
+		});
+
+	return *it;
+}
+
 Scene::~Scene() = default;
 
 void Scene::Add(const std::shared_ptr<GameObject>& object)

@@ -17,7 +17,7 @@ Comp::TextureComp::TextureComp(const std::string& fileName)
 
 	CreateTexture();
 	m_SrcRect = m_pTexture->GetSrcRect();
-	m_DestSize = m_pTexture->GetDestSize();
+	m_DestRect = m_pTexture->GetDestRect();
 }
 
 void Comp::TextureComp::Initialize()
@@ -47,11 +47,18 @@ void Comp::TextureComp::Update()
 	{
 		//remove the old texture form the render component and add the new one
 		if (m_pTexture)
-			m_pRenderComp->RemoveTexture(m_pTexture);
+			m_pRenderComp->RemoveTextures(m_pTexture);
 		//create the new texture that needs to be rendered
 		CreateTexture();
 		m_pTexture->SetSrcRect(m_SrcRect);
-		m_pTexture->SetDestSize(m_DestSize);
+
+		glm::vec4 destRect{};
+		destRect.x = m_DestRect.x + m_pTransformComp->GetPosition().x;
+		destRect.y = m_DestRect.y + m_pTransformComp->GetPosition().y;
+		destRect.z = m_DestRect.z * m_pTransformComp->GetScale().x;
+		destRect.w = m_DestRect.w * m_pTransformComp->GetScale().y;
+
+		m_pTexture->SetDestRect(destRect);
 		//add the new texture to the render component so its rendered
 		m_pRenderComp->AddTexture(m_pTexture);
 	}
@@ -69,22 +76,24 @@ void Comp::TextureComp::SetSrcRect(const glm::vec4& srcRect)
 	m_NeedsUpdate = true;
 }
 
-void Comp::TextureComp::SetDestSize(const glm::vec2& size)
+void Comp::TextureComp::SetDestRect(const glm::vec4& destRect)
 {
-	m_DestSize = size;
+	m_DestRect = destRect;
 	m_NeedsUpdate = true;
 }
 
 glm::vec2 Comp::TextureComp::GetTexSize() const
 {
 	if(m_pTexture)
-		return m_pTexture->GetDestSize();
+		return m_pTexture->GetDestRect();
 
 	return glm::vec2{};
 }
 
 void Comp::TextureComp::GetNeededComponents()
 {
+	Component::GetNeededComponents();
+
 	if(m_pGameObject.lock())
 		m_pRenderComp = m_pGameObject.lock()->GetComponent<Comp::RenderComp>();
 }

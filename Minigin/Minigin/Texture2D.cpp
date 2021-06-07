@@ -17,14 +17,14 @@ glm::vec4 dae::Texture2D::GetSrcRect() const
 	return m_SrcRect;
 }
 
-void dae::Texture2D::SetDestSize(const glm::vec2& destSize)
+void dae::Texture2D::SetDestRect(const glm::vec4& destRect)
 {
-	m_DestSize = destSize;
+	m_DestRect = destRect;
 }
 
-glm::vec2 dae::Texture2D::GetDestSize() const
+glm::vec4 dae::Texture2D::GetDestRect() const
 {
-	return m_DestSize;
+	return m_DestRect;
 }
 
 SDL_Texture* dae::Texture2D::GetSDLTexture() const
@@ -42,8 +42,10 @@ dae::Texture2D::Texture2D(SDL_Texture* texture)
 	SDL_QueryTexture(m_Texture, nullptr, nullptr, &textureWidth, &textureHeight);
 
 	//as a default set the dest rect and the src rect to the size of the texture
-	m_DestSize.x = (float)textureWidth;
-	m_DestSize.y = (float)textureHeight;
+	m_DestRect.x = 0.f;
+	m_DestRect.y = 0.f;
+	m_DestRect.z = (float)textureWidth;
+	m_DestRect.w = (float)textureHeight;
 
 	m_SrcRect.x = 0;
 	m_SrcRect.y = 0;

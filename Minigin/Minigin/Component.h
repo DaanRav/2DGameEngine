@@ -3,6 +3,11 @@
 
 class GameObject;
 
+namespace Comp
+{
+	class TransformComp;
+}
+
 class Component
 {
 public: 
@@ -20,9 +25,11 @@ public:
 	void SetGameObject(const std::weak_ptr<GameObject>& pGameObject);
 
 protected:
-	virtual void GetNeededComponents() = 0;
+	virtual void GetNeededComponents();
 	virtual bool HasAllComponents() const = 0;
 	bool IsAttachedToGameObject() const;
+
+	std::shared_ptr<Comp::TransformComp> m_pTransformComp;
 
 	//the gameobject this  component is part of
 	std::weak_ptr<GameObject> m_pGameObject{};

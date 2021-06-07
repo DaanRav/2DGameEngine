@@ -20,7 +20,7 @@ void Comp::Sprite::Initialize()
 	GetNeededComponents();
 
 	//setting the texture size by default to the size of one frame
-	m_pTextureComp->SetDestSize(glm::vec2{ m_FramePxlWidth,m_FramePxlHeight });
+	m_pTextureComp->SetDestRect(glm::vec4{ 0,0,m_FramePxlWidth,m_FramePxlHeight });
 }
 
 void Comp::Sprite::Update()
@@ -50,9 +50,9 @@ void Comp::Sprite::Update()
 	}
 }
 
-void Comp::Sprite::SetSize(const glm::vec2& size)
+void Comp::Sprite::SetSize(const glm::vec4& size)
 {
-	m_pTextureComp->SetDestSize(size);
+	m_pTextureComp->SetDestRect(size);
 }
 
 void Comp::Sprite::GetNeededComponents()

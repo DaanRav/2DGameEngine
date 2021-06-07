@@ -6,6 +6,12 @@
 #include "Transform.h"
 #include "Render.h"
 
+GameObject::GameObject(const std::wstring& name, const glm::vec3& pos)
+	:m_Name{name}
+{
+	m_Components.push_back(std::make_shared<Comp::TransformComp>(pos));
+}
+
 GameObject::~GameObject()
 {
 }
@@ -56,6 +62,11 @@ void GameObject::Render()
 void GameObject::AddComponent(std::shared_ptr<Component> pComponent)
 {
 	m_Components.push_back(pComponent);
+}
+
+std::shared_ptr<Comp::TransformComp> GameObject::GetTransform() const
+{
+	return GetComponent<Comp::TransformComp>();
 }
 
 void GameObject::SetFlag(const Flag& flag)

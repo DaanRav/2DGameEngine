@@ -1,5 +1,6 @@
 #pragma once
 #include "Component.h"
+#include <vec4.hpp>
 #include <vec2.hpp>
 
 namespace Comp
@@ -16,7 +17,7 @@ namespace Comp
 		void Initialize() override;
 		void Update() override;
 
-		void SetSize(const glm::vec2& size);
+		void SetSize(const glm::vec4& size);
 
 	private:
 		int m_Frames{1};

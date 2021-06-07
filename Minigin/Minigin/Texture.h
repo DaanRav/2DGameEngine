@@ -19,14 +19,14 @@ namespace Comp
 
 		void SetTexture(const std::string& fileName);
 		void SetSrcRect(const glm::vec4& srcRect);
-		void SetDestSize(const glm::vec2& size);
+		void SetDestRect(const glm::vec4& destRect);
 
 		glm::vec2 GetTexSize() const;
 
 	private:
 		std::string m_FileName{};
 		glm::vec4 m_SrcRect{};
-		glm::vec2 m_DestSize{};
+		glm::vec4 m_DestRect{};
 		bool m_NeedsUpdate{ false };
 		std::shared_ptr<dae::Texture2D> m_pTexture{ nullptr };
 

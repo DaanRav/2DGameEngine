@@ -30,12 +30,24 @@
     <ClCompile Include="FlickerComp.cpp">
       <Filter>Source Files\Game\GameComponents</Filter>
     </ClCompile>
+    <ClCompile Include="HexGrid.cpp">
+      <Filter>Source Files\Game\GameComponents</Filter>
+    </ClCompile>
+    <ClCompile Include="TileTexture.cpp">
+      <Filter>Source Files\Game\GameComponents</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="QbertGame.h">
       <Filter>Source Files\Game</Filter>
     </ClInclude>
     <ClInclude Include="FlickerComp.h">
+      <Filter>Source Files\Game\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="HexGrid.h">
+      <Filter>Source Files\Game\GameComponents</Filter>
+    </ClInclude>
+    <ClInclude Include="TileTexture.h">
       <Filter>Source Files\Game\GameComponents</Filter>
     </ClInclude>
   </ItemGroup>

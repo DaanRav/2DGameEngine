@@ -65,28 +65,28 @@ void dae::Minigin::LoadDemoScene() const
 	ServiceLocator::GetInstance().GetSoundSystem().PlayMusic("BgMusic", SDL_MIX_MAXVOLUME);
 
 	//background
-	auto go = std::make_shared<GameObject>();
+	auto go = std::make_shared<GameObject>(L"bg");
 	go->AddComponent(std::make_shared<Comp::TransformComp>(glm::vec3{ 0,0,0 }));
 	go->AddComponent(std::make_shared<Comp::TextureComp>("background.jpg"));
 	go->AddComponent(std::make_shared<Comp::RenderComp>());
 	scene.Add(go);
 
 	//dae logo
-	go = std::make_shared<GameObject>();
+	go = std::make_shared<GameObject>(L"logo");
 	go->AddComponent(std::make_shared<Comp::TransformComp>(glm::vec3{216,180,0}));
 	go->AddComponent(std::make_shared<Comp::TextureComp>("logo.png"));
 	go->AddComponent(std::make_shared<Comp::RenderComp>());
 	scene.Add(go);
 	
 	//assignment text
-	go = std::make_shared<GameObject>();
+	go = std::make_shared<GameObject>(L"text");
 	go->AddComponent(std::make_shared<Comp::TransformComp>(glm::vec3{80,50,0}));
 	go->AddComponent(std::make_shared<Comp::TextComp>("Programming 4 Assignment","q-bert-revised/q-bert-revised.ttf",20));
 	go->AddComponent(std::make_shared<Comp::RenderComp>());
 	scene.Add(go);
 	
 	//fps game object
-	go = std::make_shared<GameObject>();
+	go = std::make_shared<GameObject>(L"fpsCounter");
 	go->AddComponent(std::make_shared<Comp::TransformComp>(glm::vec3{0,0,0}));
 	go->AddComponent(std::make_shared<Comp::TextComp>("00 FPS","q-bert-revised/q-bert-revised.ttf",20));
 	go->GetComponent<Comp::TextComp>()->SetColor(glm::vec3{ 0.0f,1.0f,0.0f });
@@ -95,7 +95,7 @@ void dae::Minigin::LoadDemoScene() const
 	scene.Add(go);
 	
 	//creating text to check the input manager
-	go = std::make_shared<GameObject>();
+	go = std::make_shared<GameObject>(L"intputText");
 	go->AddComponent(std::make_shared<Comp::TransformComp>(glm::vec3{20,400,0}));
 	go->AddComponent(std::make_shared<Comp::TextComp>("No Input Given","Lingua.otf",20));
 	go->AddComponent(std::make_shared<Comp::RenderComp>());
@@ -103,7 +103,7 @@ void dae::Minigin::LoadDemoScene() const
 	scene.Add(go);
 
 	//creating a game object with a sprite component
-	go = std::make_shared<GameObject>();
+	go = std::make_shared<GameObject>(L"sprite");
 	go->AddComponent(std::make_shared<Comp::TransformComp>(glm::vec3{ 0,200,0 }));
 	go->AddComponent(std::make_shared<Comp::TextureComp>("SpriteTest.png"));
 	go->AddComponent(std::make_shared<Comp::RenderComp>());

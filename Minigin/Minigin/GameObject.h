@@ -3,6 +3,8 @@
 #include <typeinfo>
 #include "Component.h"
 #include <vector>
+#include <string>
+#include <vec3.hpp>
 
 class Component;
 
@@ -14,7 +16,7 @@ public:
 		active, destroyed
 	};
 
-	GameObject() = default;
+	GameObject(const std::wstring& name, const glm::vec3& pos = glm::vec3{0,0,0});
 	virtual ~GameObject();
 	GameObject(const GameObject& other) = delete;
 	GameObject(GameObject&& other) = delete;
@@ -44,11 +46,15 @@ public:
 
 		return std::dynamic_pointer_cast<T>(*it);
 	};
+	std::shared_ptr<Comp::TransformComp> GetTransform() const;
+
 
 	void SetFlag(const Flag& flag);
 	Flag GetFlag() const;
+	std::wstring GetName() const { return m_Name; };
 
 private:
+	std::wstring m_Name{};
 	std::vector<std::shared_ptr<Component>> m_Components{};
 	Flag m_Flag{ Flag::active };
 };

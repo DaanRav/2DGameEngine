@@ -36,13 +36,12 @@ void Comp::RenderComp::Update()
 		{
 			if (pTexture == nullptr)
 				return;
-			if (m_pTransformComp == nullptr)
-				return;
-
-			glm::vec3 pos{ m_pTransformComp->GetPosition() };
 
 			dae::Renderer::GetInstance().RenderTexture(*pTexture, pTexture->GetSrcRect()
-				, pos.x, pos.y, pTexture->GetDestSize().x * m_pTransformComp->GetScale().x, pTexture->GetDestSize().y * m_pTransformComp->GetScale().y);
+				, pTexture->GetDestRect().x
+				, pTexture->GetDestRect().y
+				, pTexture->GetDestRect().z
+				, pTexture->GetDestRect().w);
 		
 		});
 }
@@ -52,7 +51,7 @@ void Comp::RenderComp::AddTexture(const std::shared_ptr<dae::Texture2D>& pTextur
 	m_TexturesToRender.push_back(pTexture);
 }
 
-void Comp::RenderComp::RemoveTexture(const std::shared_ptr<dae::Texture2D>& pTexture)
+void Comp::RenderComp::RemoveTextures(const std::shared_ptr<dae::Texture2D>& pTexture)
 {
 	auto it = std::remove(m_TexturesToRender.begin(), m_TexturesToRender.end(), pTexture);
 	m_TexturesToRender.erase(it);
@@ -60,13 +59,9 @@ void Comp::RenderComp::RemoveTexture(const std::shared_ptr<dae::Texture2D>& pTex
 
 void Comp::RenderComp::GetNeededComponents()
 {
-	if (m_pGameObject.lock())
-		m_pTransformComp = m_pGameObject.lock()->GetComponent<Comp::TransformComp>();
 }
 
 bool Comp::RenderComp::HasAllComponents() const
 {
-	if (m_pTransformComp == nullptr)
-		return false;
 	return true;
 }

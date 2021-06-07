@@ -18,8 +18,8 @@ namespace dae
 
 		void SetSrcRect(const glm::vec4& srcRect);
 		glm::vec4 GetSrcRect() const;
-		void SetDestSize(const glm::vec2& destSize);
-		glm::vec2 GetDestSize() const;
+		void SetDestRect(const glm::vec4& destRect);
+		glm::vec4 GetDestRect() const;
 
 		Texture2D(const Texture2D &) = delete;
 		Texture2D(Texture2D &&) = delete;
@@ -28,6 +28,6 @@ namespace dae
 	private:
 		SDL_Texture* m_Texture;
 		glm::vec4 m_SrcRect;
-		glm::vec2 m_DestSize{};
+		glm::vec4 m_DestRect{};
 	};
 }

@@ -47,9 +47,18 @@ void Comp::TextComp::Update()
 	{
 		//remove the old texture form the render component and add the new one
 		if (m_pTexture)
-			m_pRenderComp->RemoveTexture(m_pTexture);
+			m_pRenderComp->RemoveTextures(m_pTexture);
 		//create the new texture that needs to be rendered
 		CreateTexture();
+
+		glm::vec4 destRect{};
+		destRect.x = m_pTexture->GetDestRect().x + m_pTransformComp->GetPosition().x;
+		destRect.y = m_pTexture->GetDestRect().y + m_pTransformComp->GetPosition().y;
+		destRect.z = m_pTexture->GetDestRect().z * m_pTransformComp->GetScale().x;
+		destRect.w = m_pTexture->GetDestRect().w * m_pTransformComp->GetScale().y;
+
+		m_pTexture->SetDestRect(destRect);
+
 		//add the new texture to the render component so its rendered
 		m_pRenderComp->AddTexture(m_pTexture);
 	}
@@ -80,6 +89,8 @@ void Comp::TextComp::SetColor(const glm::vec3& color)
 
 void Comp::TextComp::GetNeededComponents()
 {
+	Component::GetNeededComponents();
+
 	if (m_pGameObject.lock())
 		m_pRenderComp = m_pGameObject.lock()->GetComponent<Comp::RenderComp>();
 }
